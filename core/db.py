@@ -1,27 +1,26 @@
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-
+from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
 from core.config import settings
-from models.base import Base
 
-
-engine = create_engine(
-    settings.DATABASE_URL
+# 1. Ensure your settings.DATABASE_URL starts with an async driver prefix!
+# Example: "postgresql+asyncpg://..." instead of "postgresql://..."
+# Example: "sqlite+aiosqlite:///./db.sqlite" instead of "sqlite:///./db.sqlite"
+engine = create_async_engine(
+    settings.DATABASE_URL,
+    future=True,
+    echo=True  # Optional: logs raw SQL queries to your console for easy debugging
 )
 
-SessionLocal = sessionmaker(
-    autocommit=False,
-    autoflush=False,
-    bind=engine
+# 2. Use async_sessionmaker instead of sessionmaker
+SessionLocal = async_sessionmaker(
+    bind=engine,
+    class_=AsyncSession,
+    expire_on_commit=False  # Crucial for async so objects stay readable after commit
 )
 
-
-def get_db():
-
-    db = SessionLocal()
-
-    try:
-        yield db
-
-    finally:
-        db.close()
+# 3. Rewrite your generator function using async/await
+async def get_db():
+    async with SessionLocal() as db:
+        try:
+            yield db
+        finally:
+            await db.close()
