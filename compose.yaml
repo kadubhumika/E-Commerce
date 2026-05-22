@@ -1,0 +1,30 @@
+services:
+
+  api:
+    build: .
+    container_name: ecommerce-api
+
+    ports:
+      - "8000:8000"
+
+    volumes:
+      - .:/app
+
+    env_file:
+      - .env
+
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:16
+
+    container_name: ecommerce-db
+
+    ports:
+      - "5439:5432"
+
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 2468
+      POSTGRES_DB: e_commerce
