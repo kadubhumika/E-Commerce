@@ -32,6 +32,9 @@ class OrderService:
             product = prod_result.scalar_one_or_none()
             line_price = product.price * item.quantity
             total_price += line_price
+            if product.stock < item.quantity:
+                return None
+
             product.stock -= item.quantity
 
             # Prep permanent order record item snapshot
@@ -60,3 +63,17 @@ class OrderService:
         await db.commit()
         await db.refresh(new_order)
         return new_order
+
+    @staticmethod
+    async def get_orders(
+            db: AsyncSession,
+            customer_id: int
+    ):
+
+        result = await db.execute(
+            select(Order).where(
+                Order.customer_id == customer_id
+            )
+        )
+
+        return result.scalars().all()

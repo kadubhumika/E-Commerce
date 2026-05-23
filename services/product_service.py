@@ -17,6 +17,38 @@ class ProductService:
         await db.commit()
         await db.refresh(new_prod)
         return new_prod
+
+    @staticmethod
+    async def delete_product(
+            db: AsyncSession,
+            prod_id: int
+    ):
+
+        result = await db.execute(
+            select(Product).where(
+                Product.product_id == prod_id
+            )
+        )
+
+        product = result.scalar_one_or_none()
+
+        if not product:
+            return None
+
+        cart_check = await db.execute(
+            select(CartItem).where(
+                CartItem.product_id == prod_id
+            )
+        )
+
+        if cart_check.scalar_one_or_none():
+            return None
+
+        await db.delete(product)
+
+        await db.commit()
+
+        return True
     @staticmethod
     async def update_product(db: AsyncSession, prod_id:int, data:ProductUpdate):
         result = await db.execute(select(Product).where(Product.product_id == prod_id))
