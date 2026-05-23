@@ -1,6 +1,6 @@
 from __future__ import annotations
 from datetime import datetime
-from typing import TYPE_CHECKING, List
+from typing import TYPE_CHECKING, List, Optional
 
 from sqlalchemy import Integer, String, ForeignKey, TIMESTAMP, text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -8,10 +8,10 @@ from models.base import Base
 
 if TYPE_CHECKING:
     from models.auth_user import AuthUser
-    from models.cart import *
-    from models.order import *
-    from models.product import *
-    from models.customer import *
+    from models.cart import Cart
+    from models.order import Order
+    from models.review import Review   # ← ADD THIS
+
 
 class Customer(Base):
     __tablename__ = "customers"
@@ -23,12 +23,23 @@ class Customer(Base):
     last_name: Mapped[str] = mapped_column(String(100))
     phone: Mapped[str] = mapped_column(String(20))
     address: Mapped[str] = mapped_column(String(255))
-    created_at: Mapped[datetime] = mapped_column(TIMESTAMP, server_default=text("CURRENT_TIMESTAMP"))
+    created_at: Mapped[datetime] = mapped_column(
+        TIMESTAMP,
+        server_default=text("CURRENT_TIMESTAMP")
+    )
 
-    # Always pass the class names as strings to relationship() to stop circular imports!
-    auth_user: Mapped["AuthUser"] = relationship(back_populates="customer")
-    from typing import Optional
-    cart: Mapped[Optional["Cart"]] = relationship(back_populates="customer")
+    auth_user: Mapped["AuthUser"] = relationship(
+        back_populates="customer"
+    )
 
-    orders: Mapped[List["Order"]] = relationship(back_populates="customer")
-    reviews: Mapped[List["Review"]] = relationship(back_populates="customer")
+    cart: Mapped[Optional["Cart"]] = relationship(
+        back_populates="customer"
+    )
+
+    orders: Mapped[List["Order"]] = relationship(
+        back_populates="customer"
+    )
+
+    reviews: Mapped[List["Review"]] = relationship(
+        back_populates="customer"
+    )

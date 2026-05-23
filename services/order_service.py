@@ -23,10 +23,16 @@ class OrderService:
         total_price = Decimal("0.00")
         order_items_to_create = []
         for item in cart.cart_items:
-            prod_result = await db.execute(select(item.product))
-            product = prod_result.scalar()
+            prod_result = await db.execute(
+                select(Product).where(
+                    Product.product_id == item.product_id
+                )
+            )
+
+            product = prod_result.scalar_one_or_none()
             line_price = product.price * item.quantity
             total_price += line_price
+            product.stock -= item.quantity
 
             # Prep permanent order record item snapshot
             order_items_to_create.append(

@@ -59,11 +59,18 @@ async def process_checkout(customer_id: int, payment_method: str, db: AsyncSessi
     if not placed_order:
         raise HTTPException(status_code=400, detail="Checkout failed. Cart is empty or invalid details.")
     return placed_order
-
+# --- CATEGORY ENDPOINTS ---
 @router.get("/categories", response_model=List[CategoryResponse])
 async def get_categories(db: AsyncSession = Depends(get_db)):
     return await CategoryService.list_categories(db)
 
-@router.post("/categories", response_model=CategoryResponse)
+@router.post("/categories", response_model=CategoryResponse, status_code=status.HTTP_201_CREATED)
 async def add_category(category: CategoryCreate, db: AsyncSession = Depends(get_db)):
-    return await CategoryService.create_category(db, category)
+    try:
+        return await CategoryService.create_category(db, category)
+    except Exception:
+        # Prevents 500 error if someone inserts a duplicate category name
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Category name already exists or data is invalid."
+        )
