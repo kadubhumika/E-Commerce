@@ -1,6 +1,6 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
-from sqlalchemy.testing.pickleable import User
+
 
 from models import *
 from models.cart import Cart

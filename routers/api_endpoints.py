@@ -4,7 +4,12 @@ from typing import List
 from core.dependencies import get_current_user
 
 from core.db import get_db
+
+from fastapi.security import OAuth2PasswordRequestForm
 from core.security import create_access_token
+from schemas.profile import *
+from services.profile_service import ProfileService
+from models import AuthUser
 
 # Schemas
 from schemas.auth import *
@@ -13,6 +18,10 @@ from schemas.product import *
 from schemas.cart_item import *
 from schemas.order import *
 from schemas.review import ReviewCreate, ReviewResponse
+from core.role_dependencies import (
+    admin_required,
+    customer_required
+)
 
 # Services
 from services.auth_service import AuthService
@@ -49,19 +58,24 @@ async def register(
     return created
 
 
+
+
 @router.post(
     "/auth/login",
     response_model=TokenResponse
 )
 async def login(
-    credentials: UserLogin,
-    db: AsyncSession = Depends(get_db),
-
-
+        form_data: OAuth2PasswordRequestForm = Depends(),
+        db: AsyncSession = Depends(get_db)
 ):
+    login_data = UserLogin(
+        email=form_data.username,
+        password=form_data.password
+    )
+
     valid_user = await AuthService.login_user(
         db,
-        credentials
+        login_data
     )
 
     if not valid_user:
@@ -70,11 +84,10 @@ async def login(
             detail="Invalid credentials"
         )
 
-
-
     token = create_access_token(
         {
-            "sub": str(valid_user.id)
+            "sub": str(valid_user.id),
+            "role": valid_user.role
         }
     )
 
@@ -82,7 +95,6 @@ async def login(
         "access_token": token,
         "token_type": "bearer"
     }
-
 
 # ====================================================
 # 2. CATEGORY
@@ -95,7 +107,8 @@ async def login(
 )
 async def add_category(
     category: CategoryCreate,
-    db: AsyncSession = Depends(get_db)
+    db: AsyncSession = Depends(get_db),
+    current_user = Depends(admin_required)
 ):
     try:
         return await CategoryService.create_category(
@@ -116,6 +129,7 @@ async def add_category(
 )
 async def get_categories(
     db: AsyncSession = Depends(get_db)
+
 ):
     return await CategoryService.list_categories(db)
 
@@ -131,7 +145,7 @@ async def get_categories(
 async def add_new_product(
     product: ProductCreate,
     db: AsyncSession = Depends(get_db),
-    current_user:int = Depends(get_current_user)
+    current_user = Depends(admin_required)
 
 ):
     return await ProductService.create_product(
@@ -157,7 +171,9 @@ async def get_all_products(
 async def update_product(
     prod_id: int,
     product: ProductUpdate,
-    db: AsyncSession = Depends(get_db)
+    db: AsyncSession = Depends(get_db),
+    current_user = Depends(admin_required)
+
 ):
     updated = await ProductService.update_product(
         db,
@@ -177,7 +193,9 @@ async def update_product(
 @router.delete("/products/{prod_id}")
 async def delete_product(
     prod_id: int,
-    db: AsyncSession = Depends(get_db)
+    db: AsyncSession = Depends(get_db),
+    current_user = Depends(admin_required)
+
 ):
     deleted = await ProductService.delete_product(
         db,
@@ -205,7 +223,8 @@ async def delete_product(
 )
 async def add_item_to_basket(
     item: CartItemCreate,
-    db: AsyncSession = Depends(get_db)
+    db: AsyncSession = Depends(get_db),
+    current_user = Depends(customer_required)
 ):
     added = await CartService.add_item_to_cart(
         db,
@@ -227,7 +246,8 @@ async def add_item_to_basket(
 )
 async def view_cart(
     cart_id: int,
-    db: AsyncSession = Depends(get_db)
+    db: AsyncSession = Depends(get_db),
+    current_user = Depends(customer_required)
 ):
     return await CartService.view_cart_items(
         db,
@@ -238,7 +258,8 @@ async def view_cart(
 @router.delete("/cart/items/{cart_item_id}")
 async def delete_cart_item(
     cart_item_id: int,
-    db: AsyncSession = Depends(get_db)
+    db: AsyncSession = Depends(get_db),
+    current_user = Depends(customer_required)
 ):
     deleted = await CartService.remove_item(
         db,
@@ -268,7 +289,7 @@ async def process_checkout(
     customer_id: int,
     payment_method: str,
     db: AsyncSession = Depends(get_db),
-    current_user:int = Depends(get_current_user)
+    current_user = Depends(customer_required)
 ):
     placed_order = await OrderService.checkout_cart(
         db,
@@ -284,18 +305,18 @@ async def process_checkout(
 
     return placed_order
 
-
 @router.get(
-    "/orders/{customer_id}",
+    "/orders/my-orders",
     response_model=List[OrderResponse]
 )
-async def get_orders(
-    customer_id: int,
-    db: AsyncSession = Depends(get_db)
+async def my_orders(
+    db: AsyncSession = Depends(get_db),
+    current_user = Depends(customer_required)
 ):
+
     return await OrderService.get_orders(
         db,
-        customer_id
+        current_user.id
     )
 
 
@@ -310,7 +331,7 @@ async def get_orders(
 async def add_review(
     review: ReviewCreate,
     db: AsyncSession = Depends(get_db),
-    current_user:int = Depends(get_current_user)
+    current_user = Depends(customer_required)
 ):
     created = await ReviewService.add_review(
         db,
@@ -332,12 +353,49 @@ async def add_review(
 )
 async def get_reviews(
     product_id: int,
-    db: AsyncSession = Depends(get_db)
+    db: AsyncSession = Depends(get_db),
+    current_user = Depends(customer_required)
 ):
     return await ReviewService.get_reviews(
         db,
         product_id
     )
+# ====================================================
+# PROFILE
+# ====================================================
+
+@router.get(
+    "/profile",
+    response_model=ProfileResponse
+)
+async def get_profile(
+    db: AsyncSession = Depends(get_db),
+    current_user = Depends(customer_required)
+):
+
+    return await ProfileService.get_profile(
+        db,
+        current_user.id
+    )
+
+
+@router.put(
+    "/profile",
+    response_model=ProfileResponse
+)
+async def update_profile(
+    profile: ProfileUpdate,
+    db: AsyncSession = Depends(get_db),
+    current_user = Depends(customer_required)
+):
+
+    updated = await ProfileService.update_profile(
+        db,
+        current_user.id,
+        profile
+    )
+
+    return updated
 
 
 # ====================================================
