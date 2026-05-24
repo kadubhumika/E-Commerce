@@ -1,17 +1,20 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import List
+from core.dependencies import get_current_user
 
 from core.db import get_db
+from core.security import create_access_token
+
+# Schemas
 from schemas.auth import *
-from schemas.category import CategoryResponse, CategoryCreate
-from schemas.order import *
-
+from schemas.category import CategoryCreate, CategoryResponse
 from schemas.product import *
-
 from schemas.cart_item import *
-from schemas.review import ReviewResponse, ReviewCreate
+from schemas.order import *
+from schemas.review import ReviewCreate, ReviewResponse
 
+# Services
 from services.auth_service import AuthService
 from services.category_service import CategoryService
 from services.product_service import ProductService
@@ -22,35 +25,141 @@ from services.review_service import ReviewService
 router = APIRouter()
 
 
-@router.post("/auth/register", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
-async def register(user: UserRegister, db: AsyncSession = Depends(get_db)):
+# ====================================================
+# 1. AUTH
+# ====================================================
+
+@router.post(
+    "/auth/register",
+    response_model=UserResponse,
+    status_code=status.HTTP_201_CREATED
+)
+async def register(
+    user: UserRegister,
+    db: AsyncSession = Depends(get_db)
+):
     created = await AuthService.register_user(db, user)
+
     if not created:
-        raise HTTPException(status_code=400, detail="Email already registered")
+        raise HTTPException(
+            status_code=400,
+            detail="Email already registered"
+        )
+
     return created
 
-@router.post("/auth/login", response_model=TokenResponse)
-async def login(credentials: UserLogin, db: AsyncSession = Depends(get_db)):
-    valid_user = await AuthService.login_user(db, credentials)
-    if not valid_user:
-        raise HTTPException(status_code=401, detail="Invalid credentials")
-    return {"access_token": f"mocked-jwt-token-for-user-{valid_user.id}", "token_type": "bearer"}
 
-# --- PRODUCT ENDPOINTS ---
-@router.get("/products", response_model=List[ProductResponse])
-async def get_all_products(db: AsyncSession = Depends(get_db)):
+@router.post(
+    "/auth/login",
+    response_model=TokenResponse
+)
+async def login(
+    credentials: UserLogin,
+    db: AsyncSession = Depends(get_db),
+
+
+):
+    valid_user = await AuthService.login_user(
+        db,
+        credentials
+    )
+
+    if not valid_user:
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid credentials"
+        )
+
+
+
+    token = create_access_token(
+        {
+            "sub": str(valid_user.id)
+        }
+    )
+
+    return {
+        "access_token": token,
+        "token_type": "bearer"
+    }
+
+
+# ====================================================
+# 2. CATEGORY
+# ====================================================
+
+@router.post(
+    "/categories",
+    response_model=CategoryResponse,
+    status_code=status.HTTP_201_CREATED
+)
+async def add_category(
+    category: CategoryCreate,
+    db: AsyncSession = Depends(get_db)
+):
+    try:
+        return await CategoryService.create_category(
+            db,
+            category
+        )
+
+    except Exception:
+        raise HTTPException(
+            status_code=400,
+            detail="Category already exists"
+        )
+
+
+@router.get(
+    "/categories",
+    response_model=List[CategoryResponse]
+)
+async def get_categories(
+    db: AsyncSession = Depends(get_db)
+):
+    return await CategoryService.list_categories(db)
+
+
+# ====================================================
+# 3. PRODUCTS
+# ====================================================
+
+@router.post(
+    "/products",
+    response_model=ProductResponse
+)
+async def add_new_product(
+    product: ProductCreate,
+    db: AsyncSession = Depends(get_db),
+    current_user:int = Depends(get_current_user)
+
+):
+    return await ProductService.create_product(
+        db,
+        product
+    )
+
+
+@router.get(
+    "/products",
+    response_model=List[ProductResponse]
+)
+async def get_all_products(
+    db: AsyncSession = Depends(get_db)
+):
     return await ProductService.list_products(db)
 
-@router.post("/products", response_model=ProductResponse)
-async def add_new_product(product: ProductCreate, db: AsyncSession = Depends(get_db)):
-    return await ProductService.create_product(db, product)
-@router.put("/products/{prod_id}", response_model=ProductResponse)
+
+@router.put(
+    "/products/{prod_id}",
+    response_model=ProductResponse
+)
 async def update_product(
-    prod_id:int,
-    product:ProductUpdate,
-    db:AsyncSession=Depends(get_db)
+    prod_id: int,
+    product: ProductUpdate,
+    db: AsyncSession = Depends(get_db)
 ):
-    updated=await ProductService.update_product(
+    updated = await ProductService.update_product(
         db,
         prod_id,
         product
@@ -67,11 +176,10 @@ async def update_product(
 
 @router.delete("/products/{prod_id}")
 async def delete_product(
-    prod_id:int,
-    db:AsyncSession=Depends(get_db)
+    prod_id: int,
+    db: AsyncSession = Depends(get_db)
 ):
-
-    deleted=await ProductService.delete_product(
+    deleted = await ProductService.delete_product(
         db,
         prod_id
     )
@@ -82,24 +190,45 @@ async def delete_product(
             detail="Product not found"
         )
 
-    return {"message":"Deleted successfully"}
+    return {
+        "message": "Deleted successfully"
+    }
 
-# --- CART ENDPOINTS ---
-@router.post("/cart/items", response_model=CartItemResponse)
-async def add_item_to_basket(item: CartItemCreate, db: AsyncSession = Depends(get_db)):
-    added = await CartService.add_item_to_cart(db, item)
+
+# ====================================================
+# 4. CART
+# ====================================================
+
+@router.post(
+    "/cart/items",
+    response_model=CartItemResponse
+)
+async def add_item_to_basket(
+    item: CartItemCreate,
+    db: AsyncSession = Depends(get_db)
+):
+    added = await CartService.add_item_to_cart(
+        db,
+        item
+    )
+
     if not added:
-        raise HTTPException(status_code=400, detail="Could not add item. Out of stock or invalid data.")
+        raise HTTPException(
+            status_code=400,
+            detail="Could not add item"
+        )
+
     return added
+
+
 @router.get(
     "/cart/{cart_id}",
     response_model=List[CartItemResponse]
 )
 async def view_cart(
-        cart_id:int,
-        db:AsyncSession=Depends(get_db)
+    cart_id: int,
+    db: AsyncSession = Depends(get_db)
 ):
-
     return await CartService.view_cart_items(
         db,
         cart_id
@@ -108,49 +237,82 @@ async def view_cart(
 
 @router.delete("/cart/items/{cart_item_id}")
 async def delete_cart_item(
-        cart_item_id:int,
-        db:AsyncSession=Depends(get_db)
+    cart_item_id: int,
+    db: AsyncSession = Depends(get_db)
 ):
-
-    deleted=await CartService.remove_item(
+    deleted = await CartService.remove_item(
         db,
         cart_item_id
     )
 
     if not deleted:
-
         raise HTTPException(
             status_code=404,
             detail="Item not found"
         )
 
-    return {"message":"Deleted"}
+    return {
+        "message": "Deleted"
+    }
 
-# --- CHECKOUT ENDPOINTS ---
-@router.post("/orders/checkout/{customer_id}", response_model=OrderResponse)
-async def process_checkout(customer_id: int, payment_method: str, db: AsyncSession = Depends(get_db)):
-    placed_order = await OrderService.checkout_cart(db, customer_id, payment_method)
+
+# ====================================================
+# 5. ORDERS
+# ====================================================
+
+@router.post(
+    "/orders/checkout/{customer_id}",
+    response_model=OrderResponse
+)
+async def process_checkout(
+    customer_id: int,
+    payment_method: str,
+    db: AsyncSession = Depends(get_db),
+    current_user:int = Depends(get_current_user)
+):
+    placed_order = await OrderService.checkout_cart(
+        db,
+        customer_id,
+        payment_method
+    )
+
     if not placed_order:
-        raise HTTPException(status_code=400, detail="Checkout failed. Cart is empty or invalid details.")
+        raise HTTPException(
+            status_code=400,
+            detail="Checkout failed"
+        )
+
     return placed_order
-# --- CATEGORY ENDPOINTS ---
-@router.get("/categories", response_model=List[CategoryResponse])
-async def get_categories(db: AsyncSession = Depends(get_db)):
-    return await CategoryService.list_categories(db)
+
+
 @router.get(
     "/orders/{customer_id}",
     response_model=List[OrderResponse]
 )
+async def get_orders(
+    customer_id: int,
+    db: AsyncSession = Depends(get_db)
+):
+    return await OrderService.get_orders(
+        db,
+        customer_id
+    )
+
+
+# ====================================================
+# 6. REVIEWS
+# ====================================================
+
 @router.post(
     "/reviews",
     response_model=ReviewResponse
 )
 async def add_review(
-        review:ReviewCreate,
-        db:AsyncSession=Depends(get_db)
+    review: ReviewCreate,
+    db: AsyncSession = Depends(get_db),
+    current_user:int = Depends(get_current_user)
 ):
-
-    created=await ReviewService.add_review(
+    created = await ReviewService.add_review(
         db,
         review
     )
@@ -169,31 +331,22 @@ async def add_review(
     response_model=List[ReviewResponse]
 )
 async def get_reviews(
-        product_id:int,
-        db:AsyncSession=Depends(get_db)
+    product_id: int,
+    db: AsyncSession = Depends(get_db)
 ):
-
     return await ReviewService.get_reviews(
         db,
         product_id
     )
-async def get_orders(
-        customer_id:int,
-        db:AsyncSession=Depends(get_db)
-):
 
-    return await OrderService.get_orders(
-        db,
-        customer_id
-    )
 
-@router.post("/categories", response_model=CategoryResponse, status_code=status.HTTP_201_CREATED)
-async def add_category(category: CategoryCreate, db: AsyncSession = Depends(get_db)):
-    try:
-        return await CategoryService.create_category(db, category)
-    except Exception:
-        # Prevents 500 error if someone inserts a duplicate category name
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Category name already exists or data is invalid."
-        )
+# ====================================================
+# 7. HOME
+# ====================================================
+
+@router.get("/")
+async def home():
+    return {
+        "message":
+        "E-Commerce API running successfully"
+    }

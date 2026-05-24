@@ -5,12 +5,30 @@ from sqlalchemy.testing.pickleable import User
 from models import *
 from models.cart import Cart
 from schemas.auth import *
-import hashlib
+from passlib.context import CryptContext
+
+from security.password_handler import pwd_context
+
 
 class AuthService:
-    @staticmethod
-    def _hash_password(password: str) -> str:
-        return hashlib.sha256(password.encode()).hexdigest()
+
+
+    pwd_context = CryptContext(
+        schemes=["bcrypt"],
+        deprecated="auto"
+    )
+
+    def hash_password(password):
+        return pwd_context.hash(password)
+
+    def verify_password(
+            plain_password,
+            hashed_password
+    ):
+        return pwd_context.verify(
+            plain_password,
+            hashed_password
+        )
     @classmethod
     async def register_user(cls,db:AsyncSession, user_data:UserRegister):
         existing_user = await db.execute(select(AuthUser).where(AuthUser.email == user_data.email))
@@ -18,7 +36,7 @@ class AuthService:
             return None
         new_auth = AuthUser(
             email = user_data.email,
-            password_hash= cls._hash_password(user_data.password)
+            password_hash= cls.hash_password(user_data.password)
         )
         db.add(new_auth)
         await db.flush()
@@ -39,8 +57,22 @@ class AuthService:
         return new_auth
     @classmethod
     async def login_user(cls,db:AsyncSession, login_data:UserLogin):
-        hashed = cls._hash_password(login_data.password)
         result = await db.execute(
-            select(AuthUser).where(AuthUser.email == login_data.email, AuthUser.password_hash == hashed)
+            select(AuthUser).where(
+                AuthUser.email ==
+                login_data.email
+            )
         )
-        return result.scalar_one_or_none()
+
+        user = result.scalar_one_or_none()
+
+        if not user:
+            return None
+
+        if not cls.verify_password(
+                login_data.password,
+                user.password_hash
+        ):
+            return None
+
+        return user

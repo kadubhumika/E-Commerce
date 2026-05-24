@@ -1,3 +1,6 @@
+from sqlalchemy.exc import IntegrityError
+
+from fastapi import HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from models import *
@@ -42,13 +45,22 @@ class ProductService:
         )
 
         if cart_check.scalar_one_or_none():
-            return None
+            raise HTTPException(
+                status_code=400,
+                detail="Cannot delete product because it exists in cart"
+            )
 
-        await db.delete(product)
+        try:
+            await db.delete(product)
+            await db.commit()
+            return True
 
-        await db.commit()
-
-        return True
+        except IntegrityError:
+            await db.rollback()
+            raise HTTPException(
+                status_code=400,
+                detail="Cannot delete product because it exists in orders"
+            )
     @staticmethod
     async def update_product(db: AsyncSession, prod_id:int, data:ProductUpdate):
         result = await db.execute(select(Product).where(Product.product_id == prod_id))
