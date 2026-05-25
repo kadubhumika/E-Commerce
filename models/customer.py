@@ -23,6 +23,30 @@ class Customer(Base):
     last_name: Mapped[str] = mapped_column(String(100))
     phone: Mapped[str] = mapped_column(String(20))
     address: Mapped[str] = mapped_column(String(255))
+    city: Mapped[str] = mapped_column(
+        String(100),
+        default=""
+    )
+
+    state: Mapped[str] = mapped_column(
+        String(100),
+        default=""
+    )
+
+    country: Mapped[str] = mapped_column(
+        String(100),
+        default=""
+    )
+
+    pincode: Mapped[str] = mapped_column(
+        String(20),
+        default=""
+    )
+
+    profile_image: Mapped[Optional[str]] = mapped_column(
+        String(255),
+        nullable=True
+    )
     created_at: Mapped[datetime] = mapped_column(
         TIMESTAMP,
         server_default=text("CURRENT_TIMESTAMP")

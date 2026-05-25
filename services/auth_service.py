@@ -46,7 +46,12 @@ class AuthService:
             first_name="",
             last_name="",
             phone="",
-            address=""
+            address="",
+            city="",
+            state="",
+            country="",
+            pincode="",
+            profile_image=None
         )
         db.add(new_customer)
         await db.flush()

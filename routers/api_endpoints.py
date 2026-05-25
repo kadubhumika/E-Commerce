@@ -304,7 +304,6 @@ async def process_checkout(
         )
 
     return placed_order
-
 @router.get(
     "/orders/my-orders",
     response_model=List[OrderResponse]
@@ -314,9 +313,14 @@ async def my_orders(
     current_user = Depends(customer_required)
 ):
 
-    return await OrderService.get_orders(
+    customer = await ProfileService.get_customer_by_user_id(
         db,
         current_user.id
+    )
+
+    return await OrderService.get_orders(
+        db,
+        customer.customer_id
     )
 
 
