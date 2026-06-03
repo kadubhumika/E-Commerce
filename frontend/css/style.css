@@ -1,0 +1,274 @@
+/* ==========================================================================
+   GLOBAL VARIABLES & BASE STYLES
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root {
+    --bg-dark-green: #0b251e;
+    --bg-light-green: #134e40;
+    --primary-gold: #f39c12;
+    --secondary-gold: #f1c40f;
+    --light-gray: #f4f6f6;
+    --border-color: #cccccc;
+    --card-bg: rgba(255, 255, 255, 0.95);
+    --text-main: #333333;
+}
+
+/* Auth Pages Background Gradient (Home, Login, Signup) */
+.auth-body {
+    background: linear-gradient(135deg, var(--bg-dark-green) 0%, var(--bg-light-green) 100%);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* ==========================================================================
+   HOME PAGE STYLES
+   ========================================================================== */
+.home-container {
+    text-align: center;
+    padding: 2rem;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.logo-container img {
+    max-width: 180px;
+    height: auto;
+    margin-bottom: 1.5rem;
+}
+
+.tagline {
+    font-size: 1.2rem;
+    color: #a3cbd2;
+    margin-bottom: 3rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+.cta-btn {
+    background: var(--primary-gold);
+    color: var(--bg-dark-green);
+    padding: 12px 35px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 30px;
+    box-shadow: 0 4px 15px rgba(243, 156, 18, 0.4);
+    transition: all 0.3s ease;
+}
+
+.cta-btn:hover {
+    background: var(--secondary-gold);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(241, 196, 15, 0.6);
+}
+
+/* ==========================================================================
+   FORM CARDS STYLES (LOGIN & SIGNUP)
+   ========================================================================== */
+.card {
+    background: var(--card-bg);
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 400px;
+}
+
+.card h2 {
+    color: var(--bg-dark-green);
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.4rem;
+    color: #444444;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+    border-color: var(--bg-light-green);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(19, 78, 64, 0.1);
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 12px;
+    background: var(--bg-light-green);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 0.5rem;
+}
+
+.submit-btn:hover {
+    background: var(--bg-dark-green);
+}
+
+.switch-text {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+    color: #666666;
+}
+
+.switch-text a {
+    color: var(--bg-light-green);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.switch-text a:hover {
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   DASHBOARD PAGE STYLES
+   ========================================================================== */
+.dashboard-body {
+    background-color: var(--light-gray);
+    display: flex;
+    height: 100vh;
+    color: var(--text-main);
+}
+
+.sidebar {
+    width: 260px;
+    background: var(--bg-dark-green);
+    color: white;
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar h3 {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    color: var(--secondary-gold);
+    padding-left: 1rem;
+}
+
+.sidebar a {
+    color: #a3cbd2;
+    text-decoration: none;
+    padding: 12px 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.sidebar a:hover, .sidebar a.active {
+    background: var(--bg-light-green);
+    color: white;
+}
+
+.main-content {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.header h1 {
+    color: var(--bg-dark-green);
+    font-size: 1.8rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+    border-left: 5px solid var(--bg-light-green);
+}
+
+.stat-card p {
+    color: #777777;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.stat-card h2 {
+    color: var(--bg-dark-green);
+    font-size: 1.8rem;
+}
+
+.data-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+}
+
+.data-card h4 {
+    margin-bottom: 1rem;
+    color: var(--bg-dark-green);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #eeeeee;
+    font-size: 0.95rem;
+}
+
+th {
+    color: #555555;
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   ANIMATIONS
+   ========================================================================== */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}

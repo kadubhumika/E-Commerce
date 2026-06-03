@@ -1,23 +1,23 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from routers.api_endpoints import router
-# Import all your models here so SQLAlchemy registers them at runtime
-from models.auth_user import AuthUser
-from models.customer import Customer
-from models.product import Product
-from models.cart import Cart
-from models.order import Order
-from models.review import Review
-
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5500",
+        "http://127.0.0.1:5500",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.include_router(router)
 
-
 @app.get("/")
 def home():
-    return {
-        "message": "Ecommerce Backend Running"
-    }
+    return {"message": "Ecommerce Backend Running"}

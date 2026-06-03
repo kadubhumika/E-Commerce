@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LuxCart - Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dashboard-body">
+
+    <div class="sidebar">
+        <h3>LuxCart</h3>
+        <a href="#" class="active">Dashboard</a>
+        <a href="#">Products</a>
+        <a href="#">Orders</a>
+        <a href="#">Customers</a>
+        <a href="home.html" style="margin-top: auto; color: #e74c3c;">Logout</a>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <h1>Welcome Back, User!</h1>
+        </div>
+
+        <!-- Metrics Overview Grid Box Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <p>Total Revenue</p>
+                <h2>$4,250.00</h2>
+            </div>
+            <div class="stat-card" style="border-left-color: var(--primary-gold);">
+                <p>Orders Placed</p>
+                <h2>124</h2>
+            </div>
+            <div class="stat-card" style="border-left-color: #2ecc71;">
+                <p>Items in Cart</p>
+                <h2>5</h2>
+            </div>
+        </div>
+
+        <!-- Layout Data Table Container -->
+        <div class="data-card">
+            <h4>Recent Orders</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Product</th>
+                        <th>Status</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#1092</td>
+                        <td>Wireless Headphones</td>
+                        <td style="color: #2ecc71; font-weight: 600;">Delivered</td>
+                        <td>$89.00</td>
+                    </tr>
+                    <tr>
+                        <td>#1091</td>
+                        <td>Smart Watch Series 5</td>
+                        <td style="color: #f39c12; font-weight: 600;">Pending</td>
+                        <td>$199.00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>
