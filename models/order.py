@@ -16,8 +16,22 @@ class Order(Base):
 
     order_id: Mapped[int] = mapped_column(Integer, primary_key=True)
     customer_id: Mapped[int] = mapped_column(ForeignKey("customers.customer_id"))
-    total_price: Mapped[Decimal] = mapped_column(Numeric(10, 2))
-    status: Mapped[str] = mapped_column(String, default="pending")
+    total_amount: Mapped[Decimal] = mapped_column(
+        Numeric(10, 2)
+    )
+
+    status: Mapped[str] = mapped_column(
+        String(30),
+        default="PENDING"
+    )
+
+    payment_method: Mapped[str] = mapped_column(
+        String(50)
+    )
+
+    shipping_address: Mapped[str] = mapped_column(
+        String(500)
+    )
 
 
     customer: Mapped["Customer"] = relationship(back_populates="orders")

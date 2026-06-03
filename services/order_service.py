@@ -32,16 +32,36 @@ class OrderService:
             product = prod_result.scalar_one_or_none()
             line_price = product.price * item.quantity
             total_price += line_price
-            if product.stock < item.quantity:
+            if product.stock_quantity < item.quantity:
                 return None
 
-            product.stock -= item.quantity
+            product.stock_quantity -= item.quantity
 
             # Prep permanent order record item snapshot
             order_items_to_create.append(
                 OrderItem(product_id=item.product_id, quantity=item.quantity, price=product.price)
             )
-        new_order = Order(customer_id=customer_id, total_price=total_price, status="pending")
+            customer_result = await db.execute(
+                select(Customer).where(
+                    Customer.customer_id == customer_id
+                )
+            )
+
+            customer = customer_result.scalar_one_or_none()
+            shipping_address = (
+                f"{customer.address}, "
+                f"{customer.city}, "
+                f"{customer.state}, "
+                f"{customer.country}, "
+                f"{customer.pincode}"
+            )
+        new_order = Order(
+            customer_id=customer_id,
+            total_amount=total_price,
+            status="PENDING",
+            payment_method=payment_method,
+            shipping_address=shipping_address
+        )
         db.add(new_order)
         await db.flush()
 
@@ -63,6 +83,31 @@ class OrderService:
         await db.commit()
         await db.refresh(new_order)
         return new_order
+
+    @staticmethod
+    async def update_order_status(
+            db: AsyncSession,
+            order_id: int,
+            status: str
+    ):
+
+        result = await db.execute(
+            select(Order).where(
+                Order.order_id == order_id
+            )
+        )
+
+        order = result.scalar_one_or_none()
+
+        if not order:
+            return None
+
+        order.status = status
+
+        await db.commit()
+        await db.refresh(order)
+
+        return order
 
     @staticmethod
     async def get_orders(

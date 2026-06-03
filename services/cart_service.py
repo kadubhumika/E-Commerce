@@ -15,7 +15,7 @@ class CartService:
     async def add_item_to_cart(db:AsyncSession,data:CartItemCreate):
         prod_check = await db.execute(select(Product).where(Product.product_id == data.product_id))
         product = prod_check.scalar_one_or_none()
-        if not product or product.stock < data.quantity:
+        if not product or product.stock_quantity < data.quantity:
             return None
         existing = await db.execute(
             select(CartItem).where(CartItem.cart_id == data.cart_id, CartItem.product_id == data.product_id)

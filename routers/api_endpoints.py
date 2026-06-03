@@ -281,6 +281,31 @@ async def delete_cart_item(
 # 5. ORDERS
 # ====================================================
 
+@router.put(
+    "/orders/{order_id}/status",
+    response_model=OrderResponse
+)
+async def update_order_status(
+    order_id: int,
+    data: OrderStatusUpdate,
+    db: AsyncSession = Depends(get_db),
+    current_user = Depends(admin_required)
+):
+
+    updated = await OrderService.update_order_status(
+        db,
+        order_id,
+        data.status
+    )
+
+    if not updated:
+        raise HTTPException(
+            status_code=404,
+            detail="Order not found"
+        )
+
+    return updated
+
 @router.post(
     "/orders/checkout/{customer_id}",
     response_model=OrderResponse
