@@ -7,6 +7,8 @@ from models import *
 from schemas import *
 from schemas.product import ProductCreate, ProductUpdate
 
+from sqlalchemy import or_
+
 
 class ProductService:
     @staticmethod
@@ -73,3 +75,33 @@ class ProductService:
         await db.commit()
         await db.refresh(db_prod)
         return db_prod
+
+    @staticmethod
+    async def get_product(
+            db: AsyncSession,
+            product_id: int
+    ):
+        result = await db.execute(
+            select(Product)
+            .where(Product.product_id == product_id)
+        )
+
+        return result.scalar_one_or_none()
+
+
+    @staticmethod
+    async def search_products(
+            db: AsyncSession,
+            query: str
+    ):
+        result = await db.execute(
+            select(Product)
+            .where(
+                or_(
+                    Product.name.ilike(f"%{query}%"),
+                    Product.brand.ilike(f"%{query}%")
+                )
+            )
+        )
+
+        return result.scalars().all()

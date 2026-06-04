@@ -163,6 +163,39 @@ async def get_all_products(
 ):
     return await ProductService.list_products(db)
 
+@router.get("/products/search")
+async def search_products(
+    q: str,
+    db: AsyncSession = Depends(get_db)
+):
+    return await ProductService.search_products(
+        db,
+        q
+    )
+
+@router.get(
+    "/products/{product_id}",
+    response_model=ProductResponse
+)
+async def get_product(
+    product_id: int,
+    db: AsyncSession = Depends(get_db)
+):
+    product = await ProductService.get_product(
+        db,
+        product_id
+    )
+
+    if not product:
+        raise HTTPException(
+            status_code=404,
+            detail="Product not found"
+        )
+
+    return product
+
+
+
 
 @router.put(
     "/products/{prod_id}",
@@ -253,6 +286,68 @@ async def view_cart(
         db,
         cart_id
     )
+@router.put(
+    "/cart/items/{cart_item_id}",
+    response_model=CartItemResponse
+)
+async def update_cart_item(
+    cart_item_id: int,
+    data: CartItemUpdate,
+    db: AsyncSession = Depends(get_db),
+    current_user = Depends(customer_required)
+):
+    updated = await CartService.update_item_quantity(
+        db,
+        cart_item_id,
+        data.quantity
+    )
+
+    if not updated:
+        raise HTTPException(
+            status_code=404,
+            detail="Item not found"
+        )
+
+    return updated
+@router.get(
+    "/orders/my-orders",
+    response_model=List[OrderResponse]
+)
+async def my_orders(
+    db: AsyncSession = Depends(get_db),
+    current_user = Depends(customer_required)
+):
+
+    customer = await ProfileService.get_customer_by_user_id(
+        db,
+        current_user.id
+    )
+
+    return await OrderService.get_orders(
+        db,
+        customer.customer_id
+    )
+@router.get(
+    "/orders/{order_id}",
+    response_model=OrderResponse
+)
+async def get_order(
+    order_id: int,
+    db: AsyncSession = Depends(get_db),
+    current_user = Depends(customer_required)
+):
+    order = await OrderService.get_order(
+        db,
+        order_id
+    )
+
+    if not order:
+        raise HTTPException(
+            status_code=404,
+            detail="Order not found"
+        )
+
+    return order
 
 
 @router.delete("/cart/items/{cart_item_id}")
@@ -329,24 +424,7 @@ async def process_checkout(
         )
 
     return placed_order
-@router.get(
-    "/orders/my-orders",
-    response_model=List[OrderResponse]
-)
-async def my_orders(
-    db: AsyncSession = Depends(get_db),
-    current_user = Depends(customer_required)
-):
 
-    customer = await ProfileService.get_customer_by_user_id(
-        db,
-        current_user.id
-    )
-
-    return await OrderService.get_orders(
-        db,
-        customer.customer_id
-    )
 
 
 # ====================================================

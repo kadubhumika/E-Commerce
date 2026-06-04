@@ -110,6 +110,18 @@ class OrderService:
         return order
 
     @staticmethod
+    async def get_order(
+            db: AsyncSession,
+            order_id: int
+    ):
+        result = await db.execute(
+            select(Order)
+            .where(Order.order_id == order_id)
+        )
+
+        return result.scalar_one_or_none()
+
+    @staticmethod
     async def get_orders(
             db: AsyncSession,
             customer_id: int

@@ -31,6 +31,29 @@ class CartService:
         return cart_item
 
     @staticmethod
+    async def update_item_quantity(
+            db: AsyncSession,
+            cart_item_id: int,
+            quantity: int
+    ):
+        result = await db.execute(
+            select(CartItem)
+            .where(CartItem.cart_item_id == cart_item_id)
+        )
+
+        item = result.scalar_one_or_none()
+
+        if not item:
+            return None
+
+        item.quantity = quantity
+
+        await db.commit()
+        await db.refresh(item)
+
+        return item
+
+    @staticmethod
     async def remove_item(
             db: AsyncSession,
             cart_item_id: int
