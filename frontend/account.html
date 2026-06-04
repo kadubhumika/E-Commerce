@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LuxCart - My Account Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Corrected: Points to FontAwesome CDN so icons render properly -->
+    <link rel="stylesheet" href="https://cloudflare.com">
+</head>
+<body>
+
+    <div class="store-container">
+
+        <!-- Shared Multi-Brand Segment Split Top Strip Row -->
+        <div class="brand-tab-ribbon">
+            <a href="#" class="brand-tab blue-active">
+                <i class="fa-solid fa-bolt"></i> Flipkart
+            </a>
+            <a href="#" class="brand-tab grocery-inactive">
+                <i class="fa-solid fa-basket-shopping"></i> Grocery
+            </a>
+        </div>
+
+        <!-- Master Navigation Header Bar Shell -->
+        <header class="top-header">
+            <a href="dashboard.html" class="web-brand">LuxCart</a>
+
+            <div class="search-bar-container">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Search for items, choices..." aria-label="Search">
+                <div class="search-icons-right">
+                    <i class="fa-solid fa-microphone" title="Voice Search"></i>
+                    <i class="fa-solid fa-camera" title="Image Search"></i>
+                </div>
+            </div>
+
+            <nav class="desktop-nav-links">
+                <a href="dashboard.html" class="web-nav-item"><i class="fa-solid fa-house"></i> Home</a>
+                <a href="categories.html" class="web-nav-item"><i class="fa-solid fa-table-cells-large"></i> Categories</a>
+                <a href="#" class="web-nav-item"><i class="fa-solid fa-bell"></i> Notifications</a>
+                <a href="account.html" class="web-nav-item active"><i class="fa-solid fa-circle-user"></i> Account</a>
+                <a href="cart.html" class="web-nav-item"><i class="fa-solid fa-cart-shopping"></i> Cart</a>
+            </nav>
+        </header>
+
+        <!-- Dynamic Account Dashboard Content Arena Wrapper Grid -->
+        <main class="account-page-wrapper">
+
+            <!-- Welcome Header Component Banner -->
+            <!-- Corrected Code -->
+<section class="profile-welcome-card">
+
+    <div class="profile-info-block"> <!--  Added opening tag -->
+        <h2>Hey! Tharun Kiruthik</h2>
+        <span>Explore Plus <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i></span>
+    </div>
+
+    <div class="coin-tracker-badge">
+        <span>🪙 22</span>
+    </div>
+</section>
+
+
+            <!-- Quad Column Utility Link Array -->
+            <section class="account-quick-grid">
+                <a href="#" class="quick-action-block">
+                    <i class="fa-solid fa-box-archive"></i>
+                    <span>Orders</span>
+                </a>
+                <a href="#" class="quick-action-block">
+                    <i class="fa-regular fa-heart"></i>
+                    <span>Wishlist</span>
+                </a>
+                <a href="#" class="quick-action-block">
+                    <i class="fa-solid fa-ticket"></i>
+                    <span>Coupons</span>
+                </a>
+                <a href="#" class="quick-action-block">
+                    <i class="fa-regular fa-circle-question"></i>
+                    <span>Help Center</span>
+                </a>
+            </section>
+
+            <!-- Verification Action Indicator strip -->
+            <section class="verification-alert-strip">
+                <div class="alert-message-box">
+                    <i class="fa-solid fa-envelope-open-text"></i>
+                    <div class="alert-info">
+                        <h4>Add/Verify your Email <span style="color:var(--primary-pink); font-size:1.1rem; line-height:1;">•</span></h4>
+                        <p>Get latest updates of your orders directly in your inbox</p>
+                    </div>
+                </div>
+                <button class="alert-update-btn">Update</button>
+            </section>
+
+            <!-- Credit Options Structural Wrapper Card Panel Component -->
+            <section class="settings-section-card">
+                <h3 class="settings-headline">Credit Options</h3>
+
+                <div class="settings-links-list">
+                    <a href="#" class="setting-row-item">
+                        <div class="row-left-unit">
+                            <i class="fa-regular fa-calendar-check"></i>
+                            <div>
+                                <p style="font-weight:600; color:#fff;">Flipkart Pay Later</p>
+                                <p style="font-size:0.8rem; color:var(--text-muted); margin-top:2px;">Get ₹10,000* worth Times Prime benefits</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Account Settings Configuration Shell Blocks Container -->
+            <section class="settings-section-card">
+                <h3 class="settings-headline">Account Settings</h3>
+
+                <div class="settings-links-list">
+                    <a href="#" class="setting-row-item">
+                        <div class="row-left-unit"><i class="fa-solid fa-crown" style="color:var(--glint-yellow);"></i> <span>Flipkart Plus</span></div>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <a href="#" class="setting-row-item">
+                        <div class="row-left-unit"><i class="fa-regular fa-user"></i> <span>Edit Profile</span></div>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <a href="#" class="setting-row-item">
+                        <div class="row-left-unit"><i class="fa-regular fa-credit-card"></i> <span>Saved Cards & Wallet</span></div>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <a href="#" class="setting-row-item">
+                        <div class="row-left-unit"><i class="fa-solid fa-map-location-dot"></i> <span>Saved Addresses</span></div>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <a href="#" class="setting-row-item">
+                        <div class="row-left-unit"><i class="fa-solid fa-language"></i> <span>Select Language</span></div>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <a href="#" class="setting-row-item">
+                        <div class="row-left-unit"><i class="fa-regular fa-bell"></i> <span>Notification Settings</span></div>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Global Base Widescreen Web Footer Box Component -->
+        <footer class="web-footer">
+            <p>&copy; 2026 LuxCart Marketplace Inc. All rights reserved.</p>
+        </footer>
+
+    </div>
+<script src="js/api.js"></script>
+<script src="js/account.js"></script>
+
+</body>
+</html>

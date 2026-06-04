@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LuxCart - Secure Checkout Payments</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cloudflare.com">
+</head>
+<body>
+
+    <div class="store-container">
+
+        <!-- Shared Desktop Navbar Navigation Header Shell Component -->
+        <header class="top-header">
+            <a href="dashboard.html" class="web-brand">LuxCart</a>
+
+            <div class="search-bar-container" style="visibility: hidden; max-width: 10px;">
+                <!-- Hides structural elements to keep user focused on checkout -->
+                <input type="text">
+            </div>
+
+            <nav class="desktop-nav-links">
+                <span class="web-nav-item" style="cursor:default;"><i class="fa-solid fa-shield-halved"></i> Secure Checkout Workspace</span>
+            </nav>
+        </header>
+
+        <!-- Main Gateway Interface Panel Wrapper -->
+        <main class="payment-page-container">
+
+            <!-- Process Step Segment Monitor Head Strip -->
+            <div class="pay-step-header">
+                <div class="step-details">
+                    <h4>Step 3 of 3</h4>
+                    <h2>Payments</h2>
+                </div>
+                <div class="secure-seal">
+                    <i class="fa-solid fa-lock"></i> 100% Secure
+                </div>
+            </div>
+
+            <!-- Price Summary Collapsible Tracker Banner Container -->
+            <div class="total-bill-banner">
+                <span>Total Amount <i class="fa-solid fa-chevron-down" style="font-size:0.8rem; margin-left:6px;"></i></span>
+                <strong>₹ 2,153</strong>
+            </div>
+
+            <!-- Active Cash-back Marketing Alert Card Component -->
+            <div class="cashback-banner" style="background-color: rgba(74, 222, 128, 0.05); border-left-color: #4ade80; display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; border-radius: 8px;">
+                <div>
+                    <strong style="color:#4ade80; font-size:1.05rem; display:block;">5% Cashback</strong>
+                    <span style="color:var(--text-muted); font-size:0.9rem; margin-top:2px; display:block;">Claim now with payment offers</span>
+                </div>
+                <i class="fa-solid fa-gift" style="font-size:1.6rem; color:#4ade80; opacity:0.8;"></i>
+            </div>
+
+            <!-- Master Accordion List Control Sheet Block -->
+            <div class="payment-gateways-accordion">
+
+                <!-- Gateway Row Unit: UPI Network Array (Open Expanded State Matching Screenshot) -->
+                <div class="gateway-row-accordion">
+                    <div class="gateway-trigger-head">
+                        <div class="gateway-label-left">
+                            <i class="fa-solid fa-mobile-screen-button"></i>
+                            <span>UPI</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-up" style="color:rgba(255,255,255,0.3); font-size:0.9rem;"></i>
+                    </div>
+
+                    <!-- Nested Entry Content Slots -->
+                    <div class="gateway-nested-content">
+                        <div class="upi-radio-option">
+                            <input type="radio" id="new-upi-id" name="upi-selector" checked>
+                            <label for="new-upi-id">
+                                <div>Add new UPI ID</div>
+                                <div style="font-size:0.85rem; color:rgba(40,116,240,0.9); font-weight:600; margin-top:4px; cursor:pointer;">How to find?</div>
+                            </label>
+                        </div>
+
+                        <!-- Verification Form Box Wrapper -->
+                        <div class="nested-form-row">
+                            <input type="text" placeholder="Enter your UPI ID" aria-label="UPI Identification Parameters">
+                            <button class="verify-inline-btn">Verify</button>
+                        </div>
+
+                        <!-- Action Submit Button -->
+                        <button class="gateway-action-submit-btn">Pay ₹ 2,153</button>
+                    </div>
+                </div>
+
+                <!-- Gateway Row Unit: Cards Registry -->
+                <div class="gateway-row-accordion">
+                    <div class="gateway-trigger-head">
+                        <div class="gateway-label-left">
+                            <i class="fa-regular fa-credit-card"></i>
+                            <div>
+                                <span>Credit / Debit / ATM Card</span>
+                                <div class="sub-label-caption">Add and secure cards as per RBI guidelines</div>
+                                <div class="sub-label-caption" style="color:#4ade80;">5% Unlimited Cashback on Flipkart Axis Bank Credit Card</div>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-down" style="color:rgba(255,255,255,0.3); font-size:0.9rem;"></i>
+                    </div>
+                </div>
+
+                <!-- Gateway Row Unit: Net Banking Services -->
+                <div class="gateway-row-accordion">
+                    <div class="gateway-trigger-head">
+                        <div class="gateway-label-left">
+                            <i class="fa-solid fa-building-columns"></i>
+                            <span>Net Banking</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-down" style="color:rgba(255,255,255,0.3); font-size:0.9rem;"></i>
+                    </div>
+                </div>
+
+                <!-- Gateway Row Unit: Mobile Wallets Registry -->
+                <div class="gateway-row-accordion">
+                    <div class="gateway-trigger-head">
+                        <div class="gateway-label-left">
+                            <i class="fa-solid fa-wallet"></i>
+                            <span>Wallets</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-down" style="color:rgba(255,255,255,0.3); font-size:0.9rem;"></i>
+                    </div>
+                </div>
+
+                <!-- Gateway Row Unit: Cash On Delivery Package Service -->
+                <div class="gateway-row-accordion">
+                    <div class="gateway-trigger-head">
+                        <div class="gateway-label-left">
+                            <i class="fa-solid fa-money-bill-wave"></i>
+                            <span>Cash on Delivery</span>
+                        </div>
+                        <i class="fa-solid fa-chevron-down" style="color:rgba(255,255,255,0.3); font-size:0.9rem;"></i>
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+
+        <!-- Global Base Widescreen Web Footer Box Component -->
+        <footer class="web-footer">
+            <p>&copy; 2026 LuxCart Marketplace Inc. All rights reserved.</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>

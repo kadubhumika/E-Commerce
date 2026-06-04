@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LuxCart - Product Overview</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cloudflare.com">
+</head>
+<body>
+
+    <div class="store-container">
+
+        <!-- Shared Desktop Navbar Navigation Header -->
+        <header class="top-header">
+            <a href="dashboard.html" class="web-brand">LuxCart</a>
+
+            <div class="search-bar-container">
+                <i class="fa-solid fa-magnifying-glass" style="color: #888;"></i>
+                <input type="text" placeholder="Search for items, categories..." aria-label="Search">
+                <i class="fa-solid fa-camera" style="color: #888; margin-right: 12px;"></i>
+                <i class="fa-solid fa-qrcode" style="color: #888;"></i>
+            </div>
+
+            <nav class="desktop-nav-links">
+                <a href="dashboard.html" class="web-nav-item"><i class="fa-solid fa-house"></i> Home</a>
+                <a href="#" class="web-nav-item"><i class="fa-solid fa-user"></i> Account</a>
+                <a href="#" class="web-nav-item"><i class="fa-solid fa-cart-shopping"></i> Cart</a>
+                <a href="home.html" class="web-nav-item" style="color: #e74c3c;"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+            </nav>
+        </header>
+
+        <!-- Twin Partition Product Panel Wrapper -->
+        <main class="detail-main-wrapper">
+
+            <!-- Left Side Column Panel (Interactive Graphics with Overlays) -->
+            <section class="detail-image-panel">
+
+                <!-- Action Buttons Overlay Header -->
+                <div class="panel-action-overlay">
+                    <a href="search.html" class="action-circle-trigger" title="Back to Search">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </a>
+
+                    <div class="right-action-cluster">
+                        <button class="action-circle-trigger" title="Add to Wishlist">
+                            <i class="fa-regular fa-heart"></i>
+                        </button>
+                        <button class="action-circle-trigger" style="margin-top: 8px;" title="Share Product">
+                            <i class="fa-solid fa-share-nodes"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="main-display-img">📱</div>
+
+                <!-- Rectangular Slider Indicator Track -->
+                <div class="image-carousel-indicators">
+                    <span class="dot-indicator active"></span>
+                    <span class="dot-indicator"></span>
+                    <span class="dot-indicator"></span>
+                    <span class="dot-indicator"></span>
+                    <span class="dot-indicator"></span>
+                </div>
+            </section>
+
+            <!-- Right Side Column Panel (Product Information Metrics) -->
+            <section class="detail-info-panel">
+
+                <div>
+                    <h1 class="detail-title">Apple iPhone 14 (Titanium Black, 256GB) (12 GB RAM)</h1>
+
+                    <div class="rating-row" style="margin-top: 10px;">
+                        <div class="stars">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star-half-stroke"></i>
+                        </div>
+                        <span class="rating-count"><strong>4.6 Excellent</strong> . 3,123 ratings</span>
+                        <span class="assured-badge">Assured</span>
+                    </div>
+                </div>
+
+                <!-- Custom Attribute Select Variant Box -->
+                <div class="variant-block-container">
+                    <h5>Select Variant</h5>
+
+                    <div class="variant-row-selector">
+                        <div class="variant-label"><strong>color:</strong> <span class="variant-value">Midnight</span></div>
+                        <span class="more-variants-link">7 more &gt;</span>
+                    </div>
+
+                    <div class="variant-row-selector">
+                        <div class="variant-label"><strong>Storage:</strong> <span class="variant-value">256 GB</span></div>
+                        <span class="more-variants-link">3 more &gt;</span>
+                    </div>
+                </div>
+
+                <!-- Pricing & Installment Metrics Block Container -->
+                <div class="detail-pricing-box">
+                    <div class="emi-highlight-headline">₹10,499/month</div>
+                    <div class="emi-subtext">6 months cost EMI plan with HDFC credit-card . <a href="#">Details</a></div>
+
+                    <div class="cash-prices-line">
+                        <span class="pct-off">↓ 9%</span>
+                        <span class="old-amt">₹69,990</span>
+                        <span class="new-amt">₹62,990</span>
+                    </div>
+
+                    <div class="alternative-pay-line">
+                        Or Pay <strong>₹82,954</strong> + <span class="coin-badge">🪙 100</span>
+                    </div>
+
+                    <div class="fee-network-line" style="margin-top: 4px;">
+                        <span class="fee-tagline">+ ₹109 Secured Packaging Fee</span>
+                    </div>
+                </div>
+
+                <!-- Commercial Discount Banner Card -->
+                <div class="cashback-banner">
+                    5% Cashback & No Joining Fee with Flipkart Axis Bank Credit Card <br>
+                    <a href="#">Apply now</a>
+                </div>
+
+                <!-- Store Action Buy Rack Controls -->
+                <div class="action-buttons-rack">
+                    <button class="action-btn btn-secondary-cart" aria-label="Add item to shopping cart">
+                        <i class="fa-solid fa-cart-plus"></i>
+                    </button>
+
+                    <button class="action-btn btn-emi-pay">
+                        <div>
+                            <strong>Pay With EMI</strong>
+                            <span style="font-size: 0.75rem; color: #555;">From ₹10,499/mo</span>
+                        </div>
+                    </button>
+
+                    <button class="action-btn btn-primary-buy">Buy now</button>
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+</body>
+</html>

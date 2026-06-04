@@ -1,5 +1,5 @@
 /* ==========================================================================
-   GLOBAL VARIABLES & BASE STYLES
+   1. CORE GLOBAL CONSTANTS & MASTER DESIGN SYSTEM
    ========================================================================== */
 * {
     margin: 0;
@@ -9,19 +9,26 @@
 }
 
 :root {
-    --bg-dark-green: #0b251e;
-    --bg-light-green: #134e40;
-    --primary-gold: #f39c12;
-    --secondary-gold: #f1c40f;
-    --light-gray: #f4f6f6;
-    --border-color: #cccccc;
+    --bg-dark-indigo: #070b19;
+    --bg-light-indigo: #0e1736;
+    --primary-pink: #ff2a74;
+    --glint-yellow: #ffd814;
+    --border-color: rgba(255, 255, 255, 0.08);
     --card-bg: rgba(255, 255, 255, 0.95);
-    --text-main: #333333;
+    --text-main: #ffffff;
+    --text-muted: #a4b3d6;
+    --fk-blue: #2874f0;
 }
 
-/* Auth Pages Background Gradient (Home, Login, Signup) */
+body {
+    background: linear-gradient(180deg, #070c1e 0%, #0c1430 50%, #151e40 100%);
+    color: var(--text-main);
+    min-height: 100vh;
+}
+
+/* Auth View Layout Framework Frame Overrides (Home, Login, Signup) */
 .auth-body {
-    background: linear-gradient(135deg, var(--bg-dark-green) 0%, var(--bg-light-green) 100%);
+    background: linear-gradient(135deg, var(--bg-dark-indigo) 0%, var(--bg-light-indigo) 100%);
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -30,7 +37,7 @@
 }
 
 /* ==========================================================================
-   HOME PAGE STYLES
+   2. INITIAL LANDING & ENTRY FORM CARDS
    ========================================================================== */
 .home-container {
     text-align: center;
@@ -46,44 +53,41 @@
 
 .tagline {
     font-size: 1.2rem;
-    color: #a3cbd2;
+    color: var(--text-muted);
     margin-bottom: 3rem;
     font-weight: 300;
     letter-spacing: 1px;
 }
 
 .cta-btn {
-    background: var(--primary-gold);
-    color: var(--bg-dark-green);
+    background: var(--glint-yellow);
+    color: var(--bg-dark-indigo);
     padding: 12px 35px;
     font-size: 1rem;
     font-weight: 600;
     text-decoration: none;
     border-radius: 30px;
-    box-shadow: 0 4px 15px rgba(243, 156, 18, 0.4);
+    box-shadow: 0 4px 15px rgba(255, 216, 20, 0.3);
     transition: all 0.3s ease;
 }
 
 .cta-btn:hover {
-    background: var(--secondary-gold);
+    background: #f7ca00;
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(241, 196, 15, 0.6);
+    box-shadow: 0 6px 20px rgba(255, 216, 20, 0.5);
 }
 
-/* ==========================================================================
-   FORM CARDS STYLES (LOGIN & SIGNUP)
-   ========================================================================== */
 .card {
     background: var(--card-bg);
     padding: 2.5rem;
     border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
     width: 100%;
     max-width: 400px;
 }
 
 .card h2 {
-    color: var(--bg-dark-green);
+    color: var(--bg-dark-indigo);
     margin-bottom: 1.5rem;
     font-size: 1.8rem;
     text-align: center;
@@ -104,22 +108,16 @@
 .form-group input {
     width: 100%;
     padding: 12px;
-    border: 1px solid var(--border-color);
+    border: 1px solid #cccccc;
     border-radius: 8px;
     font-size: 0.95rem;
-    transition: all 0.3s ease;
-}
-
-.form-group input:focus {
-    border-color: var(--bg-light-green);
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(19, 78, 64, 0.1);
+    color: #333333;
 }
 
 .submit-btn {
     width: 100%;
     padding: 12px;
-    background: var(--bg-light-green);
+    background: var(--bg-light-indigo);
     color: white;
     border: none;
     border-radius: 8px;
@@ -127,11 +125,10 @@
     font-weight: 600;
     cursor: pointer;
     transition: background 0.3s ease;
-    margin-top: 0.5rem;
 }
 
 .submit-btn:hover {
-    background: var(--bg-dark-green);
+    background: var(--bg-dark-indigo);
 }
 
 .switch-text {
@@ -142,133 +139,1186 @@
 }
 
 .switch-text a {
-    color: var(--bg-light-green);
+    color: var(--primary-pink);
     text-decoration: none;
     font-weight: 600;
 }
 
-.switch-text a:hover {
-    text-decoration: underline;
-}
-
 /* ==========================================================================
-   DASHBOARD PAGE STYLES
+   3. MASTER RETAIL DASHBOARD VIEW STYLES
    ========================================================================== */
-.dashboard-body {
-    background-color: var(--light-gray);
-    display: flex;
-    height: 100vh;
-    color: var(--text-main);
-}
-
-.sidebar {
-    width: 260px;
-    background: var(--bg-dark-green);
-    color: white;
-    padding: 2rem 1rem;
+.store-container {
+    width: 100%;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
-.sidebar h3 {
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
-    color: var(--secondary-gold);
-    padding-left: 1rem;
+.brand-tab-ribbon {
+    display: flex;
+    background: #040714 !important;
+    padding: 10px 8%;
+    gap: 15px;
+    border-bottom: 1px solid var(--border-color) !important;
 }
 
-.sidebar a {
-    color: #a3cbd2;
+.brand-tab {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 28px;
+    border-radius: 8px 8px 0 0;
+    font-weight: 700;
+    font-size: 0.95rem;
     text-decoration: none;
-    padding: 12px 1rem;
-    margin-bottom: 0.5rem;
+}
+
+.brand-tab.blue-active { background: var(--fk-blue); color: white; }
+.brand-tab.grocery-inactive { background: rgba(255,255,255,0.05); color: var(--text-muted); border: 1px solid var(--border-color); }
+
+.top-header {
+    background: #070c1e !important;
+    padding: 15px 8%;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.4) !important;
+}
+
+.sub-header-utility {
+    background: transparent !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    padding: 12px 8%;
+    display: flex;
+}
+
+.brand-mall-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-muted) !important;
+}
+
+.toggle-switch-track {
+    width: 40px;
+    height: 20px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 20px;
+    position: relative;
+    cursor: pointer;
+}
+
+.toggle-switch-track::before {
+    content: '';
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: white;
+    top: 3px;
+    left: 4px;
+}
+
+.search-bar-container {
+    background: rgba(255, 255, 255, 0.06) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
     border-radius: 8px;
-    font-weight: 500;
-    transition: all 0.3s;
-}
-
-.sidebar a:hover, .sidebar a.active {
-    background: var(--bg-light-green);
-    color: white;
-}
-
-.main-content {
+    display: flex;
+    align-items: center;
+    padding: 12px 18px;
     flex: 1;
-    padding: 2rem;
-    overflow-y: auto;
+    max-width: 650px;
 }
 
-.header {
+.search-bar-container input, .search-bar-container i, .search-icons-right i {
+    color: var(--text-muted) !important;
+}
+
+.search-bar-container input {
+    border: none;
+    outline: none;
+    background: transparent;
+    width: 100%;
+    font-size: 0.95rem;
+    margin-left: 12px;
+}
+
+.search-icons-right { display: flex; align-items: center; gap: 15px; }
+
+.desktop-nav-links { display: flex; align-items: center; gap: 30px; }
+
+.web-nav-item {
+    color: var(--text-muted) !important;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.web-nav-item i { font-size: 1.2rem; }
+.web-nav-item:hover, .web-nav-item.active { color: var(--primary-pink) !important; }
+
+.web-main-body {
+    max-width: 1400px;
+    width: 100%;
+    margin: 24px auto;
+    padding: 0 8%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Glassmorphism Dynamic Structural Shelves */
+.promo-banner { width: 100%; }
+.banner-card { background: linear-gradient(135deg, #1e2a58, #3b1e54); border-radius: 12px; padding: 45px; color: white; }
+.banner-badge { background: var(--primary-pink); color: white; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 4px; display: inline-block; margin-bottom: 12px; }
+
+.categories-strip, .promo-square-grid, .shelf-section {
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    border-radius: 16px !important;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+.categories-strip { display: flex; justify-content: space-between; padding: 20px; }
+.category-circle-item { display: flex; flex-direction: column; align-items: center; gap: 8px; text-decoration: none; }
+.circle-img-placeholder { width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; }
+.category-circle-item span { font-size: 0.8rem; font-weight: 500; color: var(--text-muted) !important; }
+
+.promo-square-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.promo-square-card { background: rgba(255, 255, 255, 0.02) !important; border: 1px solid rgba(255, 255, 255, 0.04) !important; border-radius: 12px; padding: 20px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: space-between; min-height: 230px; }
+.promo-img-placeholder { font-size: 3.5rem; }
+.promo-square-card h4 { font-size: 0.95rem; color: #f1f5f9 !important; margin-top: 10px; }
+.promo-square-card p { font-size: 0.9rem; color: var(--primary-pink) !important; font-weight: 700; }
+
+.shelf-section { padding: 24px; }
+.shelf-title, .section-headline { font-size: 1.25rem; font-weight: 700; margin-bottom: 20px; color: var(--glint-yellow) !important; border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important; padding-bottom: 10px; }
+.product-web-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+
+.product-shelf-card {
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: 1px solid rgba(255, 255, 255, 0.04) !important;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+}
+.product-shelf-card:hover { background: rgba(255, 255, 255, 0.06) !important; border-color: var(--primary-pink) !important; transform: translateY(-4px); box-shadow: 0 12px 24px rgba(255, 42, 116, 0.15); }
+.product-img-box { height: 140px; background: rgba(0, 0, 0, 0.25) !important; border: 1px solid rgba(255, 255, 255, 0.04) !important; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 3rem; margin-bottom: 12px; }
+.product-shelf-card p { font-size: 0.9rem; color: #f1f5f9 !important; font-weight: 500; }
+
+.web-footer { background: #040714 !important; color: var(--text-muted); padding: 20px; text-align: center; font-size: 0.85rem; margin-top: auto; border-top: 1px solid var(--border-color); }
+
+/* ==========================================================================
+   4. SEARCH FEEDS & HORIZONTAL LIST SHOWCASES
+   ========================================================================== */
+.search-container { max-width: 1200px; width: 100%; margin: 20px auto; padding: 0 20px; }
+.results-count { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 15px; }
+.search-results-list { display: flex; flex-direction: column; gap: 1px; }
+.product-list-row { display: flex; padding: 24px; gap: 30px; }
+.product-list-row:hover { background: rgba(255, 255, 255, 0.06) !important; border-color: var(--primary-pink) !important; }.product-list-img-box { width: 200px; height: 200px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 5rem; background: rgba(0, 0, 0, 0.25) !important; border: 1px solid rgba(255,255,255,0.04); border-radius: 8px; }.product-list-details { flex: 1; display: flex; flex-direction: column; gap: 8px; }.product-list-title { font-size: 1.2rem; font-weight: 600; color: #f1f5f9 !important; text-decoration: none; }.product-list-title:hover { color: var(--primary-pink) !important; }.rating-row { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; }.stars { color: #f1c40f; }.rating-count { color: var(--text-muted); }.assured-badge { background: var(--fk-blue); color: white; font-size: 0.75rem; font-weight: 700; padding: 2px 6px; border-radius: 3px; }.price-block { display: flex; flex-direction: column; gap: 4px; }.main-price-line { display: flex; align-items: baseline; gap: 10px; }.discount-percentage { color: var(--primary-pink) !important; font-size: 1.3rem; font-weight: 500; }.current-price { font-size: 1.6rem; font-weight: 700; color: #f1f5f9 !important; }.original-price { color: var(--text-muted); text-decoration: line-through; font-size: 0.95rem; }.bank-offer-tag { font-size: 0.9rem; color: var(--primary-pink) !important; font-weight: 600; display: flex; align-items: center; gap: 6px; }.exchange-tag, .delivery-tag { font-size: 0.9rem; color: #f1f5f9; }.delivery-tag strong { color: var(--glint-yellow); }.warranty-tag { font-size: 0.85rem; color: var(--text-muted); }/* ==========================================================================5. SINGLE PRODUCT OVERVIEW CONFIGURATOR (SPLIT SCREEN VIEW)========================================================================== */.detail-main-wrapper { max-width: 1300px; width: 100%; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 50px; }.detail-image-panel { background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 8px; padding: 40px; display: flex; flex-direction: column; align-items: center; position: sticky; top: 100px; height: fit-content; }.panel-action-overlay { width: 100%; display: flex; justify-content: space-between; margin-bottom: 20px; }.action-circle-trigger { width: 42px; height: 42px; border: 1px solid var(--border-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; background: rgba(255,255,255,0.05); font-size: 1.1rem; cursor: pointer; text-decoration: none; }.right-action-cluster { display: flex; flex-direction: column; gap: 12px; }.main-display-img { font-size: 12rem; margin-bottom: 30px; }.image-carousel-indicators { display: flex; gap: 8px; }.dot-indicator { width: 28px; height: 6px; border-radius: 20px; background-color: rgba(255,255,255,0.2); }.dot-indicator.active { background-color: var(--primary-pink); }.detail-info-panel { display: flex; flex-direction: column; gap: 20px; }.detail-title { font-size: 1.6rem; font-weight: 600; color: #fff; }.variant-block-container { border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); padding: 16px 0; display: flex; flex-direction: column; gap: 12px; }.variant-block-container h5 { font-size: 0.85rem; color: var(--text-muted); }.variant-row-selector { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 12px 16px; border-radius: 6px; }.variant-label strong { color: var(--text-muted); font-weight: 500; }.variant-value { font-weight: 600; color: #fff; }.more-variants-link { font-size: 0.9rem; color: var(--glint-yellow); font-weight: 600; }.emi-highlight-headline { font-size: 2rem; font-weight: 700; color: #fff; }.emi-subtext { font-size: 0.95rem; color: var(--text-muted); }.emi-subtext a { color: var(--glint-yellow); text-decoration: none; }.cash-prices-line { display: flex; align-items: baseline; gap: 12px; }.cash-prices-line .pct-off { color: var(--primary-pink); font-size: 1.3rem; font-weight: 600; }.cash-prices-line .old-amt { color: var(--text-muted); text-decoration: line-through; }.cash-prices-line .new-amt { font-size: 1.8rem; font-weight: 700; color: #fff; }.alternative-pay-line { color: #f1f5f9; }.coin-badge { background-color: #f1c40f; color: #0b251e; font-size: 0.75rem; font-weight: 700; padding: 2px 6px; border-radius: 4px; }.cashback-banner { background-color: rgba(40, 116, 240, 0.1); border-left: 4px solid var(--fk-blue); padding: 12px 16px; border-radius: 4px; color: #fff; font-size: 0.9rem; }.cashback-banner a { color: var(--glint-yellow); font-weight: 700; text-decoration: none; }.action-buttons-rack { display: flex; gap: 16px; }.action-btn { flex: 1; padding: 16px; font-size: 1.05rem; font-weight: 700; border-radius: 6px; cursor: pointer; border: none; display: flex; align-items: center; justify-content: center; gap: 10px; }.btn-secondary-cart { background-color: rgba(255,255,255,0.05); border: 2px solid var(--border-color); color: #fff; }.btn-emi-pay { background-color: transparent; border: 2px solid #fff; color: #fff; }.btn-primary-buy { background-color: var(--glint-yellow); color: #111; }/* ==========================================================================6. EXPANDED CATEGORIES GRID SYSTEM========================================================================== */.categories-page-wrapper { max-width: 1200px; width: 100%; margin: 30px auto; padding: 0 20px; display: flex; flex-direction: column; gap: 35px; }.master-categories-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }.category-grid-item { background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; text-decoration: none; transition: all 0.3s ease; }.category-grid-item:hover { background: rgba(255, 255, 255, 0.06); border-color: var(--primary-pink); transform: translateY(-4px); box-shadow: 0 12px 24px rgba(255, 42, 116, 0.15); }.large-circle-bubble { width: 110px; height: 110px; border-radius: 50%; background: rgba(255, 255, 255, 0.06); display: flex; align-items: center; justify-content: center; font-size: 3.2rem; border: 1px solid var(--border-color); }.category-grid-item p { font-size: 1rem; font-weight: 600; color: #f1f5f9; text-align: center; }.more-brands-strip { display: flex; justify-content: space-between; gap: 20px; }.more-brand-box { flex: 1; background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; display: flex; align-items: center; gap: 15px; text-decoration: none; }.mini-circle-bubble { width: 50px; height: 50px; border-radius: 50%; background: rgba(255, 255, 255, 0.08); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }.more-brand-box span { font-size: 0.95rem; font-weight: 600; color: #f1f5f9; }
+/* ==========================================================================7. CORE ENGINE ANIMATIONS========================================================================== */
+@keyframes fadeIn {from { opacity: 0; transform: translateY(20px); }to { opacity: 1; transform: translateY(0); }}
+/* ==========================================================================
+   8. SHOPPING CART SYSTEM STYLES (DESKTOP CONTROLS)
+   ========================================================================== */
+.cart-main-layout {
+    max-width: 1200px;
+    width: 100%;
+    margin: 30px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 1.8fr 1fr;
+    gap: 30px;
+}
+
+.cart-items-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Address Locator Header Strip Row */
+.address-locator-strip {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 16px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2rem;
 }
 
-.header h1 {
-    color: var(--bg-dark-green);
-    font-size: 1.8rem;
-}
-
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-}
-
-.stat-card {
-    background: white;
-    padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.04);
-    border-left: 5px solid var(--bg-light-green);
-}
-
-.stat-card p {
-    color: #777777;
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
-}
-
-.stat-card h2 {
-    color: var(--bg-dark-green);
-    font-size: 1.8rem;
-}
-
-.data-card {
-    background: white;
-    padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.04);
-}
-
-.data-card h4 {
-    margin-bottom: 1rem;
-    color: var(--bg-dark-green);
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    text-align: left;
-}
-
-th, td {
-    padding: 12px;
-    border-bottom: 1px solid #eeeeee;
+.address-text p {
     font-size: 0.95rem;
+    color: #fff;
+    font-weight: 500;
 }
 
-th {
-    color: #555555;
+.address-text span {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.change-addr-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--glint-yellow);
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+/* Central Product Cart Sheet Card */
+.cart-product-sheet {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 24px;
+}
+
+.bestseller-tag {
+    background: #008b8b;
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 2px;
+    display: inline-block;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+.cart-item-core-row {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 20px;
+}
+
+.cart-item-img-box {
+    width: 110px;
+    height: 110px;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3.5rem;
+}
+
+.cart-item-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.cart-item-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.cart-item-subtitle {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.cart-offers-applied {
+    font-size: 0.85rem;
+    color: var(--primary-pink);
     font-weight: 600;
 }
 
-/* ==========================================================================
-   ANIMATIONS
-   ========================================================================== */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+.cart-delivery-status {
+    font-size: 0.85rem;
+    color: #fff;
+    margin-top: 4px;
 }
+
+.cart-delivery-status span {
+    color: #4ade80;
+    font-weight: 600;
+}
+
+/* Interactive Quantity Controls Rack */
+.qty-row-selector {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.qty-dropdown {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border-color);
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-weight: 600;
+    outline: none;
+}
+
+/* Action Strip Buttons Row */
+.cart-action-strip {
+    display: flex;
+    border-top: 1px solid var(--border-color);
+    margin-top: 20px;
+    padding-top: 15px;
+    gap: 10px;
+}
+
+.cart-strip-btn {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: color 0.2s;
+}
+
+.cart-strip-btn:hover {
+    color: var(--primary-pink);
+}
+
+/* Warranty Addon Component Drawer */
+.addon-warranty-drawer {
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 15px;
+}
+
+.warranty-header-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.warranty-inner-body {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px dashed var(--border-color);
+}
+
+/* Pricing Breakdown Sidebar Panel Column */
+.price-summary-sidebar {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 24px;
+    height: fit-content;
+    position: sticky;
+    top: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.summary-headline {
+    font-size: 1rem;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 12px;
+}
+
+.summary-data-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.95rem;
+    color: #f1f5f9;
+}
+
+.total-payable-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #fff;
+    border-top: 1px dashed var(--border-color);
+    border-bottom: 1px dashed var(--border-color);
+    padding: 15px 0;
+    margin: 5px 0;
+}
+
+.place-order-btn {
+    background: var(--glint-yellow);
+    color: #111;
+    border: none;
+    width: 100%;
+    padding: 16px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    text-transform: uppercase;
+    text-align: center;
+    transition: background-color 0.2s;
+}
+
+.place-order-btn:hover {
+    background-color: #f7ca00;
+}
+/* ==========================================================================
+   9. EMPTY CART & SUGGESTIONS LAYOUT STYLES
+   ========================================================================== */
+.empty-cart-wrapper {
+    max-width: 1200px;
+    width: 100%;
+    margin: 30px auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Central Empty Status Card Box */
+.empty-status-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 60px 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    backdrop-filter: blur(20px);
+}
+
+.empty-cart-icon {
+    font-size: 6.5rem;
+    color: var(--text-muted);
+    opacity: 0.7;
+    margin-bottom: 10px;
+}
+
+.empty-status-card h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.shop-now-btn {
+    background: var(--fk-blue);
+    color: #ffffff;
+    padding: 14px 40px;
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 6px;
+    box-shadow: 0 4px 15px rgba(40, 116, 240, 0.3);
+    transition: all 0.2s ease;
+}
+
+.shop-now-btn:hover {
+    background: #1b64da;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(40, 116, 240, 0.5);
+}
+
+/* Suggested For You Matrix Grid Shelf System */
+.suggestions-shelf {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 24px;
+}
+
+.suggestions-headline {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--glint-yellow);
+    margin-bottom: 4px;
+}
+
+.suggestions-subtext {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+}
+
+.inline-action-add-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    width: 100%;
+    padding: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 12px;
+    transition: all 0.2s ease;
+}
+
+.inline-action-add-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--primary-pink);
+    color: var(--primary-pink);
+}
+/* ==========================================================================
+   10. ACCOUNT PROFILE SYSTEM STYLES (DESKTOP GRID)
+   ========================================================================== */
+.account-page-wrapper {
+    max-width: 1200px;
+    width: 100%;
+    margin: 30px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+}
+
+/* Header Welcome Profile Banner Card Component */
+.profile-welcome-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-identity h2 {
+    font-size: 1.6rem;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.user-identity span {
+    font-size: 0.9rem;
+    color: var(--glint-yellow);
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.coin-tracker-badge {
+    background: rgba(255, 216, 20, 0.1);
+    border: 1px solid var(--glint-yellow);
+    padding: 8px 16px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    color: var(--glint-yellow);
+}
+
+/* Quick Utilities Matrix Grid Blocks */
+.account-quick-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.quick-action-block {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+.quick-action-block:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: var(--primary-pink);
+    transform: translateY(-2px);
+}
+
+.quick-action-block i {
+    font-size: 1.25rem;
+    color: var(--text-muted);
+}
+
+/* Email Verification Dynamic Strip banner */
+.verification-alert-strip {
+    background: rgba(255, 255, 255, 0.03);
+    border-left: 4px solid var(--primary-pink);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.alert-message-box {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.alert-message-box i {
+    font-size: 1.8rem;
+    color: var(--glint-yellow);
+}
+
+.alert-info h4 {
+    font-size: 1rem;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.alert-info p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.alert-update-btn {
+    background: var(--fk-blue);
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    font-weight: 700;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+}
+
+.alert-update-btn:hover {
+    background: #1b64da;
+}
+
+/* Link Settings Shell Blocks */
+.settings-section-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 24px;
+}
+
+.settings-headline {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--glint-yellow);
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.settings-links-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.setting-row-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    text-decoration: none;
+    color: #e2ebe9;
+    transition: background-color 0.2s;
+}
+
+.setting-row-item:last-child {
+    border-bottom: none;
+}
+
+.setting-row-item:hover {
+    background-color: rgba(255, 255, 255, 0.02);
+    color: #ffffff;
+}
+
+.row-left-unit {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.row-left-unit i {
+    width: 20px;
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.setting-row-item .fa-chevron-right {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.2);
+}
+/* ==========================================================================
+   11. NOTIFICATIONS INBOX SYSTEM STYLES
+   ========================================================================== */
+.notifications-wrapper {
+    max-width: 1000px;
+    width: 100%;
+    margin: 30px auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Custom Filter Capsule Controls */
+.filter-pills-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.capsule-pill {
+    padding: 8px 24px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.capsule-pill.pill-active {
+    background: var(--fk-blue);
+    color: #ffffff;
+    border: 1px solid var(--fk-blue);
+}
+
+.capsule-pill.pill-inactive {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+}
+
+.capsule-pill.pill-inactive:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+}
+
+/* Master Notification Container Sheet */
+.notifications-feed-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background-color: var(--border-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.notification-alert-row {
+    background: rgba(255, 255, 255, 0.02);
+    display: flex;
+    padding: 24px;
+    gap: 20px;
+    align-items: flex-start;
+    transition: background-color 0.2s;
+}
+
+.notification-alert-row:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Vector Verify Badge Icon Unit */
+.notification-icon-indicator {
+    font-size: 1.15rem;
+    color: var(--fk-blue);
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+/* Text Feed Info Details Block */
+.notification-text-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.notification-text-details h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 1.3;
+}
+
+.notification-text-details p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+.notification-timestamp {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+/* Asset Marketing Graphic Right Thumbnail */
+.notification-thumbnail-box {
+    width: 80px;
+    height: 80px;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    flex-shrink: 0;
+}
+/* ==========================================================================
+   12. CHECKOUT PAYMENTS GATEWAY SYSTEMS STYLES
+   ========================================================================== */
+.payment-page-container {
+    max-width: 1000px;
+    width: 100%;
+    margin: 30px auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Payment Status Summary Head Strip */
+.pay-step-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 16px 24px;
+}
+
+.step-details h4 {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.step-details h2 {
+    font-size: 1.4rem;
+    color: #ffffff;
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+.secure-seal {
+    background: rgba(74, 222, 128, 0.1);
+    color: #4ade80;
+    border: 1px solid rgba(74, 222, 128, 0.2);
+    padding: 6px 14px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+/* Collapsible Total Bill Banner Row */
+.total-bill-banner {
+    background: rgba(40, 116, 240, 0.08);
+    border: 1px solid rgba(40, 116, 240, 0.2);
+    border-radius: 8px;
+    padding: 18px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.total-bill-banner span {
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 1.05rem;
+}
+
+.total-bill-banner strong {
+    color: #ffffff;
+    font-size: 1.35rem;
+}
+
+/* Master Accordion Gateway Sheet Wrapper */
+.payment-gateways-accordion {
+    display: flex;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* Individual Drawer Row */
+.gateway-row-accordion {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.gateway-row-accordion:last-child {
+    border-bottom: none;
+}
+
+.gateway-trigger-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.01);
+    transition: background-color 0.2s;
+}
+
+.gateway-trigger-head:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.gateway-label-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.gateway-label-left i {
+    width: 24px;
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+/* Active Drawer Content Panel Slot */
+.gateway-nested-content {
+    background: rgba(0, 0, 0, 0.15);
+    padding: 24px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.upi-radio-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #ffffff;
+}
+
+.upi-radio-option input {
+    margin-top: 4px;
+    accent-color: var(--fk-blue);
+    cursor: pointer;
+}
+
+/* Sub-input Forms Layout Setup inside standard Accordions */
+.nested-form-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: 26px;
+    max-width: 500px;
+    width: 100%;
+}
+
+.nested-form-row input {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 12px 16px;
+    color: #ffffff;
+    font-size: 0.95rem;
+    outline: none;
+}
+
+.nested-form-row input:focus {
+    border-color: var(--fk-blue);
+}
+
+.verify-inline-btn {
+    background: var(--fk-blue);
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: background-color 0.2s;
+}
+
+.verify-inline-btn:hover {
+    background: #1b64da;
+}
+
+/* Main Flat Action Submit Callout Triggers */
+.gateway-action-submit-btn {
+    background: #8e9297; /* Matches inactive dark gray states in your screenshot image */
+    color: #ffffff;
+    border: none;
+    padding: 16px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    max-width: 474px;
+    width: 100%;
+    margin-left: 26px;
+    transition: background-color 0.2s;
+}
+
+.gateway-action-submit-btn.ready-active {
+    background: var(--fk-blue);
+}
+
+.gateway-action-submit-btn.ready-active:hover {
+    background: #1b64da;
+}
+
+.sub-label-caption {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+    font-weight: 500;
+}
+/* ==========================================================================
+   14. COMPACT ORDER LEDGER SHEET STYLES
+   ========================================================================== */
+.ledger-section-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 15px;
+    backdrop-filter: blur(20px);
+}
+
+.ledger-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    margin-top: 15px;
+}
+
+.ledger-table th,
+.ledger-table td {
+    padding: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.95rem;
+}
+
+.ledger-table th {
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+}
+
+.ledger-id-text {
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.ledger-amt-text {
+    font-weight: 600;
+    color: var(--glint-yellow);
+}
+
+/* Status Indicator Pill Micro-components */
+.status-pill {
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+.status-pill.delivered {
+    background: rgba(74, 222, 128, 0.1);
+    color: #4ade80;
+    border: 1px solid rgba(74, 222, 128, 0.2);
+}
+
+.status-pill.pending {
+    background: rgba(255, 216, 20, 0.1);
+    color: var(--glint-yellow);
+    border: 1px solid rgba(255, 216, 20, 0.2);
+}
+
+.status-pill.shipped {
+    background: rgba(40, 116, 240, 0.1);
+    color: var(--fk-blue);
+    border: 1px solid rgba(40, 116, 240, 0.2);
+}
+
+.ledger-action-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    padding: 6px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+}
+
+.ledger-action-btn:hover {
+    border-color: var(--primary-pink);
+    color: var(--primary-pink);
+}
+/* ==========================================================================
+   16. NO ORDERS state PAGE STYLES
+   ========================================================================== */
+.no-orders-icon {
+    font-size: 6.5rem;
+    color: var(--text-muted);
+    opacity: 0.7;
+    margin-bottom: 10px;
+}
+

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LuxCart - My Shopping Cart</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cloudflare.com">
+</head>
+<body>
+
+    <div class="store-container">
+
+        <!-- Shared Multi-Brand Segment Split Top Strip Row -->
+        <div class="brand-tab-ribbon">
+            <a href="#" class="brand-tab blue-active">
+                <i class="fa-solid fa-bolt"></i> Flipkart (1)
+            </a>
+            <a href="#" class="brand-tab grocery-inactive">
+                <i class="fa-solid fa-basket-shopping"></i> Grocery
+            </a>
+        </div>
+
+        <!-- Master Navigation Header Bar Shell -->
+        <header class="top-header">
+            <a href="dashboard.html" class="web-brand">LuxCart</a>
+
+            <div class="search-bar-container">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Search for items, categories..." aria-label="Search">
+                <div class="search-icons-right">
+                    <i class="fa-solid fa-microphone" title="Voice Search"></i>
+                    <i class="fa-solid fa-camera" title="Image Search"></i>
+                </div>
+            </div>
+
+            <nav class="desktop-nav-links">
+                <a href="dashboard.html" class="web-nav-item"><i class="fa-solid fa-house"></i> Home</a>
+                <a href="categories.html" class="web-nav-item"><i class="fa-solid fa-table-cells-large"></i> Categories</a>
+                <a href="#" class="web-nav-item"><i class="fa-solid fa-bell"></i> Notifications</a>
+                <a href="#" class="web-nav-item"><i class="fa-solid fa-circle-user"></i> Account</a>
+                <a href="cart.html" class="web-nav-item active"><i class="fa-solid fa-cart-shopping"></i> Cart</a>
+            </nav>
+        </header>
+
+        <!-- Two Partition Shopping Cart Workspace Layout Grid -->
+        <main class="cart-main-layout">
+
+            <!-- Left Side Data Grid Column Panel -->
+            <section class="cart-items-column">
+
+                <!-- Address Locator Header Strip Row Component -->
+                <div class="address-locator-strip">
+                    <div class="address-text">
+                        <p>Deliver to: <strong>Tharun... , 638656</strong> <span class="coin-badge" style="background:#3b1e54; color:#fff; font-size:0.65rem;">HOME</span></p>
+                        <span>54B, New Gandhi puram Fifth cross...</span>
+                    </div>
+                    <button class="change-addr-btn" aria-label="Change Delivery Address">Change</button>
+                </div>
+
+                <!-- Central Product Cart Sheet Card -->
+                <div class="cart-product-sheet">
+                    <span class="bestseller-tag">Bestseller</span>
+
+                    <div class="cart-item-core-row">
+                        <div class="cart-item-img-box">🎧</div>
+
+                        <div class="cart-item-details">
+                            <h3 class="cart-item-title">Mi Basic Wired Headset with Mic</h3>
+                            <p class="cart-item-subtitle">Black, In the Ear</p>
+
+                            <div class="rating-row">
+                                <div class="stars">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                                <span class="rating-count">(7,47,049)</span>
+                                <span class="assured-badge">Assured</span>
+                            </div>
+
+                            <div class="main-price-line" style="margin-top: 8px;">
+                                <span class="discount-percentage">16% off</span>
+                                <span class="original-price">₹599</span>
+                                <span class="current-price" style="font-size: 1.3rem;">₹499</span>
+                            </div>
+
+                            <p class="cart-offers-applied">4 offers applied . 1 offer available</p>
+                            <p class="cart-delivery-status">Delivery by Tomorrow, Wed | <span>FREE Delivery</span> <span style="text-decoration:line-through; color:var(--text-muted);">₹40</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Quantity Dropdown Form Controls Component -->
+                    <div class="qty-row-selector">
+                        <label for="cart-qty" style="font-size:0.9rem; color:var(--text-muted);">Qty:</label>
+                        <select id="cart-qty" class="qty-dropdown" aria-label="Select Quantity">
+                            <option value="1" selected>1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </div>
+
+                    <!-- Lower Utility Form Button Triggers -->
+                    <div class="cart-action-strip">
+                        <button class="cart-strip-btn"><i class="fa-regular fa-trash-can"></i> Remove</button>
+                        <button class="cart-strip-btn"><i class="fa-regular fa-bookmark"></i> Save for later</button>
+                        <button class="cart-strip-btn" style="color:var(--glint-yellow);"><i class="fa-solid fa-bolt"></i> Buy this now</button>
+                    </div>
+                </div>
+
+                <!-- Extended Warranty Addon Component Drawer Accordion -->
+                <div class="addon-warranty-drawer">
+                    <div class="warranty-header-toggle">
+                        <span><i class="fa-solid fa-square-plus" style="color:var(--fk-blue); margin-right:8px;"></i> Extended Warranty Plan by...</span>
+                        <i class="fa-solid fa-chevron-up"></i>
+                    </div>
+
+                    <div class="warranty-inner-body">
+                        <div class="cart-item-img-box" style="width:60px; height:60px; font-size:1.5rem;">🛡️</div>
+                        <div class="cart-item-details">
+                            <h4 class="cart-item-title" style="font-size:1rem;">Extended Warranty for Headphones</h4>
+                            <p class="cart-item-subtitle">1 Year Coverage Plan</p>
+
+                            <div class="main-price-line" style="margin-top: 4px;">
+                                <span class="discount-percentage" style="font-size:0.9rem;">51% off</span>
+                                <span class="original-price" style="font-size:0.85rem;">₹39</span>
+                                <span class="current-price" style="font-size:1rem;">₹19</span>
+                            </div>
+                            <p class="cart-item-subtitle" style="margin-top:6px; font-size:0.8rem; line-height:1.4;">Get Full Warranty Coverage and protection against accidental damages. Add Extended Warranty to secure your hardware layers.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Right Side Price Summary Column Sidebar Panel Component -->
+            <aside class="price-summary-sidebar">
+                <h3 class="summary-headline">Price Details</h3>
+
+                <div class="summary-data-row">
+                    <span>Price (1 item)</span>
+                    <span>₹599</span>
+                </div>
+
+                <div class="summary-data-row">
+                    <span>Discount</span>
+                    <span style="color:var(--primary-pink);">-₹100</span>
+                </div>
+
+                <div class="summary-data-row">
+                    <span>Delivery Charges</span>
+                    <span style="color:#4ade80;">FREE</span>
+                </div>
+
+                <div class="total-payable-row">
+                    <span>Total Amount</span>
+                    <span style="color:var(--glint-yellow);">₹499</span>
+                </div>
+
+                <p style="font-size:0.85rem; color:#4ade80; font-weight:600; text-align:center;"><i class="fa-solid fa-shield-halved"></i> Safe and Secure Checkouts</p>
+
+                <button class="place-order-btn">Place order</button>
+            </aside>
+
+        </main>
+
+        <!-- Global Base Widescreen Web Footer Box Component -->
+        <footer class="web-footer">
+            <p>&copy; 2026 LuxCart Marketplace Inc. All rights reserved.</p>
+        </footer>
+
+    </div>
+<script src="js/api.js"></script>
+<script src="js/cart.js"></script>
+
+</body>
+</html>
