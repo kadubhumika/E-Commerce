@@ -47,7 +47,7 @@
         <main class="cart-main-layout">
 
             <!-- Left Side Data Grid Column Panel -->
-            <section class="cart-items-column">
+            <section class="cart-items-column" id="cart-container">
 
                 <!-- Address Locator Header Strip Row Component -->
                 <div class="address-locator-strip">
@@ -95,7 +95,11 @@
                     <!-- Quantity Dropdown Form Controls Component -->
                     <div class="qty-row-selector">
                         <label for="cart-qty" style="font-size:0.9rem; color:var(--text-muted);">Qty:</label>
-                        <select id="cart-qty" class="qty-dropdown" aria-label="Select Quantity">
+                        <select
+    id="cart-qty"
+    class="qty-dropdown"
+    onchange="updateQty(1,this.value)"
+> aria-label="Select Quantity">
                             <option value="1" selected>1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -105,7 +109,9 @@
 
                     <!-- Lower Utility Form Button Triggers -->
                     <div class="cart-action-strip">
-                        <button class="cart-strip-btn"><i class="fa-regular fa-trash-can"></i> Remove</button>
+                       <button onclick="removeItem(1)">
+    Remove
+</button>
                         <button class="cart-strip-btn"><i class="fa-regular fa-bookmark"></i> Save for later</button>
                         <button class="cart-strip-btn" style="color:var(--glint-yellow);"><i class="fa-solid fa-bolt"></i> Buy this now</button>
                     </div>

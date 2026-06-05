@@ -1,42 +1,44 @@
-document.addEventListener("DOMContentLoaded", async () => {
+const API_URL = "http://127.0.0.1:8000";
 
-    const token = localStorage.getItem("token");
+const searchInput = document.getElementById("searchInput");
 
-    if (!token) {
-        window.location.href = "login.html";
-        return;
-    }
+if (searchInput) {
+    searchInput.addEventListener("keydown", (e) => {
 
-    try {
+        if (e.key === "Enter") {
+            const query = searchInput.value.trim();
 
-        const response = await fetch(
-            `${API_BASE_URL}/products`
-        );
+            if (query) {
+                window.location.href =
+                    `search.html?q=${encodeURIComponent(query)}`;
+            }
+        }
+    });
+}
 
-        const products = await response.json();
+async function loadProducts() {
 
-        console.log("Products:", products);
+    const res = await fetch(`${API_URL}/products`);
+    const products = await res.json();
 
-        const productGrid =
-            document.querySelector(".product-web-grid");
+    const container = document.getElementById("products-container");
 
-        productGrid.innerHTML = "";
+    container.innerHTML = "";
 
-        products.forEach(product => {
+    products.forEach(product => {
+        container.innerHTML += `
+            <div class="product-shelf-card"
+                 onclick="window.location.href='product-detail.html?id=${product.product_id}'">
 
-            productGrid.innerHTML += `
-                <div class="product-shelf-card">
-                    <div class="product-img-box">📦</div>
-                    <p>${product.name}</p>
-                    <span>${product.price}</span>
-                </div>
-            `;
+                <div class="product-img-box">📦</div>
 
-        });
+                <p>${product.name}</p>
 
-    }
-    catch (error) {
-        console.error(error);
-    }
+                <strong>₹${product.price}</strong>
 
-});
+            </div>
+        `;
+    });
+}
+
+loadProducts();

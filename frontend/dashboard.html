@@ -33,7 +33,7 @@
             <!-- Complete Unified Search Input Block -->
             <div class="search-bar-container">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Search for products, brands and more" aria-label="Search Feed">
+                <input id="searchInput" type="text" placeholder="Search for products, brands and more" aria-label="Search Feed">
                 <div class="search-icons-right">
                     <i class="fa-solid fa-microphone" title="Voice Search"></i>
                     <i class="fa-solid fa-camera" title="Image Search"></i>
@@ -129,24 +129,8 @@
             <!-- Base Product Matrix Showcase Shelf -->
             <main class="shelf-section">
                 <h3 class="shelf-title">Recently Viewed Stores</h3>
-                <div class="product-web-grid">
-                    <div class="product-shelf-card">
-                        <div class="product-img-box">🎧</div>
-                        <p>Wired Earphones</p>
-                    </div>
-                    <div class="product-shelf-card">
-                        <div class="product-img-box">🎮</div>
-                        <p>Other Platforms</p>
-                    </div>
-                    <div class="product-shelf-card">
-                        <div class="product-img-box">📹</div>
-                        <p>Webcams</p>
-                    </div>
-                    <div class="product-shelf-card">
-                        <div class="product-img-box">⌨️</div>
-                        <p>Computer Keyboards</p>
-                    </div>
-                </div>
+                <div class="product-web-grid" id="products-container">
+    </div>
             </main>
 
         </div>
