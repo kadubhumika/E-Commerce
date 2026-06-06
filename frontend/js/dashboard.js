@@ -28,7 +28,7 @@ async function loadProducts() {
     products.forEach(product => {
         container.innerHTML += `
             <div class="product-shelf-card"
-                 onclick="window.location.href='product-detail.html?id=${product.product_id}'">
+                 onclick="window.location.href='./product-detail.html?id=${product.product_id}'">
 
                 <div class="product-img-box">📦</div>
 

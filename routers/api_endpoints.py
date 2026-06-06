@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status
+from select import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import List
 from core.dependencies import get_current_user
@@ -9,7 +10,9 @@ from fastapi.security import OAuth2PasswordRequestForm
 from core.security import create_access_token
 from schemas.profile import *
 from services.profile_service import ProfileService
-from models import AuthUser
+from models import AuthUser, Cart
+from sqlalchemy import select
+from models.cart import Cart
 
 # Schemas
 from schemas.auth import *
@@ -259,8 +262,22 @@ async def add_item_to_basket(
     db: AsyncSession = Depends(get_db),
     current_user = Depends(customer_required)
 ):
+    customer = await ProfileService.get_customer_by_user_id(
+        db,
+        current_user.id
+    )
+
+    cart_result = await db.execute(
+        select(Cart).where(
+            Cart.customer_id == customer.customer_id
+        )
+    )
+
+    cart = cart_result.scalar_one()
+
     added = await CartService.add_item_to_cart(
         db,
+        cart.cart_id,
         item
     )
 
@@ -274,8 +291,7 @@ async def add_item_to_basket(
 
 
 @router.get(
-    "/cart/{cart_id}",
-    response_model=List[CartItemResponse]
+    "/cart/{cart_id}"
 )
 async def view_cart(
     cart_id: int,

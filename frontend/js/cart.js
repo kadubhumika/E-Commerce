@@ -5,7 +5,7 @@ async function loadCart() {
     const token = localStorage.getItem("token");
 
     const response = await fetch(
-        `${API_BASE_URL}/cart/6`,
+        `${API_BASE_URL}/cart/8`,
         {
             headers:{
                 Authorization:`Bearer ${token}`
@@ -18,19 +18,40 @@ async function loadCart() {
 document.getElementById("cart-container");
 
 container.innerHTML = "";
-
 items.forEach(item => {
     container.innerHTML += `
-        <div>
-            Product ID: ${item.product_id}
-            Quantity: ${item.quantity}
-            <button onclick="removeItem(${item.cart_item_id})">
-                Remove
-            </button>
+        <div class="cart-product-sheet">
+
+            <div class="cart-item-core-row">
+
+                <div class="cart-item-img-box">
+                    ${
+                        item.image_url
+                        ? `<img src="${item.image_url}" width="80">`
+                        : "📦"
+                    }
+                </div>
+
+                <div class="cart-item-details">
+                    <h3>${item.name}</h3>
+                    <p>₹${item.price}</p>
+
+                    <button onclick="updateQty(${item.cart_item_id}, ${item.quantity - 1})">-</button>
+
+                    ${item.quantity}
+
+                    <button onclick="updateQty(${item.cart_item_id}, ${item.quantity + 1})">+</button>
+
+                    <button onclick="removeItem(${item.cart_item_id})">
+                        Remove
+                    </button>
+                </div>
+
+            </div>
+
         </div>
     `;
 });
-
     console.log(items);
 }
 
@@ -51,6 +72,10 @@ async function removeItem(cartItemId){
     loadCart();
 }
 async function updateQty(cartItemId, qty){
+
+    if(qty < 1){
+        return;
+    }
 
     const token = localStorage.getItem("token");
 

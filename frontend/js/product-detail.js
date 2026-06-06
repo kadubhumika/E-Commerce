@@ -55,7 +55,6 @@ async function addToCart() {
     const token = localStorage.getItem("token");
 
     const cartItem = {
-        cart_id: 1,
         product_id: Number(productId),
         quantity: 1
     };

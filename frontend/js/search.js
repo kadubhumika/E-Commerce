@@ -25,7 +25,7 @@ async function searchProducts() {
 
             container.innerHTML += `
             <div class="product-list-row"
-                 onclick="window.location.href='product-detail.html?id=${product.product_id}'">
+                 onclick="window.location.href='./product-detail.html?id=${product.product_id}'">
 
                 <div class="product-list-img-box">
                     📦
