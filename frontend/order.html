@@ -79,45 +79,7 @@
             </section>
 
             <!-- 1. GRAPHICAL ORDER TIMELINE CONTAINER -->
-            <div style="display:flex; flex-direction:column; gap:16px;">
-
-                <div class="order-tracking-card">
-                    <div class="order-item-thumb">📱</div>
-
-                    <div class="order-item-info">
-                        <h3>Apple iPhone 14 (256GB)</h3>
-                        <p>Color: Midnight Black</p>
-                        <p style="margin-top:6px; font-weight:700; color:var(--glint-yellow);">₹62,990</p>
-                    </div>
-
-                    <!-- Horizontal progress line elements -->
-                    <div class="order-progress-timeline step-shipped">
-                        <div class="timeline-node complete">
-                            <div class="node-dot"></div>
-                            <span>Ordered</span>
-                        </div>
-                        <div class="timeline-node active">
-                            <div class="node-dot"></div>
-                            <span>Shipped</span>
-                        </div>
-                        <div class="timeline-node">
-                            <div class="node-dot"></div>
-                            <span>Out for Delivery</span>
-                        </div>
-                        <div class="timeline-node">
-                            <div class="node-dot"></div>
-                            <span>Delivered</span>
-                        </div>
-                    </div>
-
-                    <!-- Side Utility Buttons Rack Column -->
-                    <div class="order-actions-column">
-                        <a href="product-detail.html" class="order-action-link-btn"><i class="fa-solid fa-circle-info"></i> Details</a>
-                        <button class="order-action-link-btn"><i class="fa-regular fa-comments"></i> Support</button>
-                    </div>
-                </div>
-
-            </div>
+            <div id="orders-container"></div>
 
             <!-- 2. STRUCTURAL ITEMISED LEDGER DATATABLE BLOCK -->
             <section class="ledger-section-card">

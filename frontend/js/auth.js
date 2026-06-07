@@ -99,6 +99,11 @@ if (loginForm) {
                     "token",
                     data.access_token
                 );
+                localStorage.setItem(
+    "customer_id",
+    data.customer_id
+);
+
 
                 window.location.href =
                     "dashboard.html";
