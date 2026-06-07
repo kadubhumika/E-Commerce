@@ -1,6 +1,7 @@
 // Function to save a new notification to localStorage
 function addNotification(title, message) {
-    const notifications = JSON.parse(localStorage.getItem("notifications")) || [];
+    const notifications =
+        JSON.parse(localStorage.getItem("notifications")) || [];
 
     notifications.unshift({
         title,
@@ -8,8 +9,13 @@ function addNotification(title, message) {
         time: new Date().toLocaleString()
     });
 
-    localStorage.setItem("notifications", JSON.stringify(notifications));
+    localStorage.setItem(
+        "notifications",
+        JSON.stringify(notifications)
+    );
 }
+
+window.addNotification = addNotification;
 
 // Function to pull notifications from localStorage and render them on the page
 document.addEventListener("DOMContentLoaded", () => {

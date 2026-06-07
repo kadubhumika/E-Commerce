@@ -61,8 +61,15 @@ async function updateQty(cartItemId, qty) {
   
   // 3. Refresh cart first, then notify
   await loadCart();
+
   addNotification("Cart Updated", "Quantity updated");
 }
 
 // Initial fetch on page load
 loadCart();
+
+document
+  .getElementById("placeOrderBtn")
+  .addEventListener("click", () => {
+      window.location.href = "payment.html";
+  });

@@ -37,7 +37,7 @@
             <nav class="desktop-nav-links">
                 <a href="dashboard.html" class="web-nav-item"><i class="fa-solid fa-house"></i> Home</a>
                 <a href="categories.html" class="web-nav-item"><i class="fa-solid fa-table-cells-large"></i> Categories</a>
-                <a href="#" class="web-nav-item"><i class="fa-solid fa-bell"></i> Notifications</a>
+                <a href="notifications.html" class="web-nav-item"><i class="fa-solid fa-bell"></i> Notifications</a>
                 <a href="#" class="web-nav-item"><i class="fa-solid fa-circle-user"></i> Account</a>
                 <a href="cart.html" class="web-nav-item active"><i class="fa-solid fa-cart-shopping"></i> Cart</a>
             </nav>
@@ -168,7 +168,11 @@
 
                 <p style="font-size:0.85rem; color:#4ade80; font-weight:600; text-align:center;"><i class="fa-solid fa-shield-halved"></i> Safe and Secure Checkouts</p>
 
-                <button class="place-order-btn">Place order</button>
+                <button
+    class="place-order-btn"
+    onclick="window.location.href='payment.html'">
+    Place Order
+</button>
             </aside>
 
         </main>
@@ -180,7 +184,10 @@
 
     </div>
 <script src="js/api.js"></script>
+    <script src="js/notifications.js"></script>
 <script src="js/cart.js"></script>
+
+
 
 </body>
 </html>

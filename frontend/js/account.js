@@ -19,13 +19,17 @@ document.addEventListener("DOMContentLoaded", async () => {
         );
 
         const profile = await response.json();
+        localStorage.setItem(
+    "customer_id",
+    profile.customer_id
+);
 
         console.log(profile);
 
         document.querySelector(
             ".profile-info-block h2"
         ).innerText =
-            `Hey! ${profile.username}`;
+            `Hey! ${profile.first_name}  ${profile.last_name}`;
 
     } catch (error) {
 
