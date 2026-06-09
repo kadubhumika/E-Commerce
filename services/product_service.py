@@ -8,18 +8,60 @@ from schemas import *
 from schemas.product import ProductCreate, ProductUpdate
 
 from sqlalchemy import or_
+import json
+
+from core.redis import redis_client
+
+
 
 
 class ProductService:
     @staticmethod
     async def list_products(db: AsyncSession):
-        result = await db.execute(select(Product))
-        return result.scalars().all()
+
+        cached_products = await redis_client.get("products")
+
+        if cached_products:
+            print("CACHE HIT")
+            return json.loads(cached_products)
+
+        print("CACHE MISS")
+
+        result = await db.execute(
+            select(Product)
+        )
+
+        products = result.scalars().all()
+
+        data = [
+            {
+                "product_id": p.product_id,
+                "name": p.name,
+                "description": p.description,
+                "price": float(p.price),
+                "stock_quantity": p.stock_quantity,
+                "image_url": p.image_url,
+                "category_id": p.category_id,
+                "brand": p.brand,
+                "rating": p.rating,
+                "discount": p.discount
+            }
+            for p in products
+        ]
+
+        await redis_client.set(
+            "products",
+            json.dumps(data),
+            ex=300
+        )
+
+        return data
     @staticmethod
     async def create_product(db: AsyncSession, data:ProductCreate):
         new_prod = Product(**data.model_dump())
         db.add(new_prod)
         await db.commit()
+        await redis_client.create("products")
         await db.refresh(new_prod)
         return new_prod
 
@@ -55,6 +97,8 @@ class ProductService:
         try:
             await db.delete(product)
             await db.commit()
+            await redis_client.delete("products")
+            await db.refresh(product)
             return True
 
         except IntegrityError:
@@ -73,6 +117,7 @@ class ProductService:
             setattr(db_prod, key, value)
 
         await db.commit()
+        await redis_client.update("products")
         await db.refresh(db_prod)
         return db_prod
 
