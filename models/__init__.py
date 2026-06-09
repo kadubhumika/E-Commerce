@@ -8,3 +8,4 @@ from models.order_item import OrderItem
 from models.payment import Payment
 from models.order import Order
 from models.review import Review
+from models.base import Base

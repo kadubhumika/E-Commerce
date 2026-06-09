@@ -25,7 +25,6 @@ services:
 
   postgres:
     image: postgres:16
-
     container_name: ecommerce-db
 
     ports:
@@ -35,3 +34,4 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 2468
       POSTGRES_DB: e_commerce
+

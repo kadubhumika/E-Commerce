@@ -43,8 +43,8 @@ class ProductService:
                 "image_url": p.image_url,
                 "category_id": p.category_id,
                 "brand": p.brand,
-                "rating": p.rating,
-                "discount": p.discount
+                "rating": float(p.rating) if p.rating is not None else None,
+                "discount": float(p.discount) if p.discount is not None else None
             }
             for p in products
         ]
@@ -61,7 +61,7 @@ class ProductService:
         new_prod = Product(**data.model_dump())
         db.add(new_prod)
         await db.commit()
-        await redis_client.create("products")
+        await redis_client.delete("products")
         await db.refresh(new_prod)
         return new_prod
 
@@ -98,7 +98,7 @@ class ProductService:
             await db.delete(product)
             await db.commit()
             await redis_client.delete("products")
-            await db.refresh(product)
+
             return True
 
         except IntegrityError:
@@ -117,7 +117,7 @@ class ProductService:
             setattr(db_prod, key, value)
 
         await db.commit()
-        await redis_client.update("products")
+        await redis_client.delete("products")
         await db.refresh(db_prod)
         return db_prod
 
